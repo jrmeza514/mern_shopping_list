@@ -16,14 +16,12 @@ mongoose.connect(db)
     .catch( err => console.log(err))
 
 app.use('/api/items', itemsRouter);
-console.log(process.env.NODE_ENV);
-if(process.env.NODE_ENV === 'prodction'){
-    app.use(express.static('./client/build/'));
 
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-    })
-}
+app.use(express.static('./client/build/'));
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+})
+
 
 const port = process.env.PORT || 5000;
 
