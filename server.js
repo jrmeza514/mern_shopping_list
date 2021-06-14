@@ -16,7 +16,7 @@ mongoose.connect(db)
     .catch( err => console.log(err))
 
 app.use('/api/items', itemsRouter);
-
+console.log(process.env.NODE_ENV);
 if(process.env.NODE_ENV === 'prodction'){
     app.use(express.static('client/build/'));
 
