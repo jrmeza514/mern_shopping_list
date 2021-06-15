@@ -37,6 +37,10 @@ class ItemModal extends Component {
         e.preventDefault();
         console.log("Submit")
         this.props.addItem(this.state.name);
+        this.setState({
+            ...this.state,
+            name: ''
+        });
         this.toggle();
     }
 
@@ -53,7 +57,7 @@ class ItemModal extends Component {
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <Label for="name">Shopping List Item</Label>
-                                <Input type="text" name="name" id="item" placeholder="Add a shopping item" onChange={this.onChange}></Input>
+                                <Input type="text" name="name" id="item" placeholder="Add a shopping item" onChange={this.onChange} required></Input>
                                 <Button color="dark" style={{marginTop: '1rem'}} type="submit" block>  Submit</Button>
                             </FormGroup>
                         </Form>
