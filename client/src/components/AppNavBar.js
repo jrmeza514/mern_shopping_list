@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import RegisterModal from './auth/RegisterModal';
+import LoginModal from './auth/LoginModal';
+import Logout from './auth/Logout';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import  {
     Collapse,
     Navbar,
@@ -13,7 +19,11 @@ import  {
 class AppNavBar extends Component {
     state = {
         isOpen: false
-    }
+    };
+
+    static propTypes = {
+        isAuthenticated: PropTypes.bool
+    };
 
     toggle = () => {
         this.setState({
@@ -30,9 +40,7 @@ class AppNavBar extends Component {
                         <NavbarToggler onClick={this.toggle}></NavbarToggler>
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
-                                <NavItem>
-                                    <NavLink href="https://github.com/jrmeza514" target="_blank"> GitHub</NavLink>
-                                </NavItem>
+                            {this.props.isAuthenticated ? <NavItem><Logout/></NavItem> : <><NavItem><LoginModal/></NavItem><NavItem><RegisterModal/></NavItem></> }   
                             </Nav>
                         </Collapse>
                     </Container>
@@ -42,4 +50,8 @@ class AppNavBar extends Component {
     }
 }
 
-export default AppNavBar;
+const mapStateToProps = ( state ) => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, {})(AppNavBar);
