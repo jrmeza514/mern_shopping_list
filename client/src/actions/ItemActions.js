@@ -2,7 +2,7 @@ import axios from 'axios';
 import { disconnect } from 'mongoose';
 import { tokenConfig } from './authActions';
 
-import {GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING} from './types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING} from './types';
 
 
 export const getItems = () => (dispatch, getState) => {
@@ -15,6 +15,9 @@ export const getItems = () => (dispatch, getState) => {
             payload: res.data
         })
     })
+    .catch(err => {
+        if(err.response.status === 401) dispatch({ type: GET_ITEMS, payload: []});
+    });
 }
 
 export const deleteItem = id => (dispatch, getState) => {

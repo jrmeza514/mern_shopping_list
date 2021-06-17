@@ -19,9 +19,8 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
-          <AppNavBar></AppNavBar>
+          <AppNavBar/>
           <Container>
-            <ItemModal></ItemModal>
             <ShoppingList></ShoppingList>
           </Container>
         </div>

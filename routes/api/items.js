@@ -9,8 +9,9 @@ const Item = require('../../models/Items');
 //@desc GET All Items
 //@access Public
 
-router.get('/', (req, res) => {
-    Item.find()
+router.get('/', auth, (req, res) => {
+    
+    Item.find({userId: req.user.id})
         .sort({date:-1})
         .then( items => res.json(items))
 });
@@ -20,7 +21,8 @@ router.get('/', (req, res) => {
 //@access Public
 
 router.post('/', auth, (req, res) => {
-    const newItem = new Item({name: req.body.name});
+    const userId = req.user.id;
+    const newItem = new Item({name: req.body.name, userId});
     newItem.save().then( item => res.json(item));
 });
 

@@ -6,10 +6,15 @@ const ItemSchema = new Schema({
         type: String,
         require: true
     },
-     date: {
+    date: {
          type: Date,
          default: Date.now
-     }
+    },
+    userId: {
+        type: String,
+        require: true
+    }
+
 });
 
 module.exports = Item = mongoose.model('item', ItemSchema);
