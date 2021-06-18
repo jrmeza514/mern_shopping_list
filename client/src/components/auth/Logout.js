@@ -13,6 +13,7 @@ class Logout extends Component{
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired
     }
+    
     render(){
         return (
             <Fragment>
@@ -24,10 +25,10 @@ class Logout extends Component{
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     error: state.error,
     logout
 })
 
-export default connect(mapStateToProps, { logout})(Logout)
+export default connect(mapStateToProps, { logout})(Logout);

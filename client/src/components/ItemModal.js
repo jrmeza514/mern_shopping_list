@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import { addItem } from '../actions/ItemActions';
+
 import {
     Button,
     Modal,
@@ -9,11 +12,6 @@ import {
     Label,
     Input
 } from 'reactstrap';
-
-import {v4 as uuid} from 'uuid';
-
-import { connect } from 'react-redux';
-import { addItem } from '../actions/ItemActions';
 
 class ItemModal extends Component {
     state = {
@@ -67,7 +65,7 @@ class ItemModal extends Component {
         )
     }
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     item: state.item
 })
 

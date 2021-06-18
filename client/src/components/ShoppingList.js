@@ -59,7 +59,7 @@ ShoppingList.propTypes = {
     isAuthenticated: PropTypes.bool
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     item: state.item,
     isAuthenticated: state.auth.isAuthenticated
 })

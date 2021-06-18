@@ -40,7 +40,27 @@ class AppNavBar extends Component {
                         <NavbarToggler onClick={this.toggle}></NavbarToggler>
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
-                            {this.props.isAuthenticated ? <NavItem><Logout/></NavItem> : <><NavItem><LoginModal/></NavItem><NavItem><RegisterModal/></NavItem></> }   
+                            {   
+                                //If Logged In
+                                (this.props.auth.isAuthenticated) ? 
+                                    <>
+                                    <NavItem>
+                                        <NavLink> {`Welcome, ${this.props.auth.user.name}`} </NavLink>
+                                    </NavItem>
+                                    <NavItem> 
+                                        <Logout/> 
+                                    </NavItem>
+                                    </>
+                                : // If Not Logged In
+                                    <>
+                                    <NavItem>
+                                        <LoginModal/>
+                                    </NavItem>
+                                    <NavItem>
+                                        <RegisterModal/>
+                                    </NavItem>
+                                    </> 
+                            }   
                             </Nav>
                         </Collapse>
                     </Container>
@@ -50,8 +70,8 @@ class AppNavBar extends Component {
     }
 }
 
-const mapStateToProps = ( state ) => ({
-    isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = state => ({
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, {})(AppNavBar);
