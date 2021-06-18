@@ -1,4 +1,3 @@
-import axios from 'axios';
 
 import { GET_ERRORS, CLEAR_ERRORS } from './types'
 
@@ -13,4 +12,4 @@ export const clearErrors = () => {
     return {
         type: CLEAR_ERRORS
     };
-}
+} 

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
-import { getItems } from './ItemActions';
 
 import {
     USER_LOADED,
