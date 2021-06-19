@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
-
+import { IAuthForm, IAuthFunction, IUser } from '../types/interfaces';
 import {
     USER_LOADED,
     USER_LOADING,
@@ -11,9 +11,10 @@ import {
     REGISTER_FAIL,
     REGISTER_SUCCESS
 } from '../actions/types';
+import { IConfigHeaders } from '../types/interfaces';
 
 // Login Action
-export const login = (email, password) => dispatch => {
+export const login = ({email, password}: IAuthFunction) => (dispatch: Function) => {
     const config = {
         headers: {"Content-type": "application/json"}
     };
@@ -32,11 +33,11 @@ export const login = (email, password) => dispatch => {
 }
 
 // Logout Action
-export const logout = () => dispatch => {
+export const logout = () => (dispatch: Function) => {
     dispatch({ type: LOGOUT_SUCCESS});
 }
 
-export const register = ({name, email, password}) => dispatch => {
+export const register = ({name, email, password}: any) => (dispatch: Function) => {
     const config = {
        headers: { "Content-type": "application/json"}
     };
@@ -54,7 +55,7 @@ export const register = ({name, email, password}) => dispatch => {
 
 }
 
-export const loadUser = () => (dispatch, getState) => {
+export const loadUser = () => (dispatch: Function, getState: Function) => {
     dispatch({type: USER_LOADING});
     
 
@@ -69,16 +70,17 @@ export const loadUser = () => (dispatch, getState) => {
     });
 }
 
-export const tokenConfig = getState => {
+export const tokenConfig = (getState: Function) => {
     const token = getState().auth.token;
 
-    const config = {
+    const config: IConfigHeaders= {
         headers: {
             "Content-type": "application/json"
         }
     }
 
-    if(token) config.headers['x-auth-token'] = token;
-
+    if(token) {
+        config.headers['x-auth-token'] = token;
+    }
     return config;
 }

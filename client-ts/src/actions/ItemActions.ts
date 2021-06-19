@@ -4,7 +4,7 @@ import { tokenConfig } from './authActions';
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING} from './types';
 
 
-export const getItems = () => (dispatch, getState) => {
+export const getItems = () => (dispatch: Function, getState: Function) => {
     const config = tokenConfig(getState);
     dispatch(setItemsLoading());
     axios.get('/api/items', config)
@@ -19,7 +19,7 @@ export const getItems = () => (dispatch, getState) => {
     });
 }
 
-export const deleteItem = id => (dispatch, getState) => {
+export const deleteItem = (id: string) => (dispatch: Function, getState: Function) => {
     const config = tokenConfig(getState);
 
     axios.delete(`/api/items/${id}`, config).then( res => {
@@ -32,7 +32,7 @@ export const deleteItem = id => (dispatch, getState) => {
     }).catch( e => console.log("err"))
 }
 
-export const addItem = name => (dispatch, getState) => {
+export const addItem = (name: string) => (dispatch: Function, getState: Function) => {
     const config = tokenConfig(getState);
     axios.post('/api/items', {name: name}, config).then( res => {
        dispatch({
