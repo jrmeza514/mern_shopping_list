@@ -12,9 +12,9 @@ import {
     Label,
     Input
 } from 'reactstrap';
-import { IItemReduxProps, ITarget } from '../types/interfaces';
+import { IItemModal, IItemReduxProps, ITarget } from '../types/interfaces';
 
-const  ItemModal = () => {
+const  ItemModal = ({addItem}: IItemModal) => {
     
     const [modal, setModal] = useState(false);
     const [name, setName] = useState('');
@@ -42,7 +42,7 @@ const  ItemModal = () => {
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}> Add to Shopping List </ModalHeader>
                 <ModalBody>
-                    <Form onSubmit={handleOnSubmit}>
+                    <Form onSubmit={e => handleOnSubmit(e)}> 
                         <FormGroup>
                             <Label for="name">Shopping List Item</Label>
                             <Input type="text" name="name" id="item" placeholder="Add a shopping item" onChange={handleChangeName} required></Input>
@@ -56,6 +56,7 @@ const  ItemModal = () => {
     
 }
 const mapStateToProps = (state: IItemReduxProps) => ({
+    isAuthenticated: state.auth.isAuthenticated,
     item: state.item
 })
 

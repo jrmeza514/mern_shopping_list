@@ -78,7 +78,7 @@ export interface ITarget {
   
   export interface IItemModal {
     isAuthenticated: boolean;
-    addItem(item: IItem): void;
+    addItem(name: string): void;
   }
   
   export interface IItemReduxProps extends IAuthReduxProps {

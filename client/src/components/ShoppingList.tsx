@@ -27,7 +27,7 @@ const ShoppingList = ( {item, isAuthenticated, getItems, deleteItem}: IShoppingL
             <ListGroup>
                 <TransitionGroup className="shopping-list">
                     {items.map( ({_id, name}) => (
-                        <CSSTransition key={_id} timeout={500} classNames="fade"> 
+                        <CSSTransition key={_id} timeout={5} classNames="fade"> 
                             <ListGroupItem>
                                 <Button
                                     className="remove-btn"
