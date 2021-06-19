@@ -6,15 +6,15 @@ import PropTypes from 'prop-types';
 
 import { logout } from "../../actions/authActions";
 
-class Logout extends Component{
+class Logout extends Component {
 
     static propTypes = {
         logout: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired
     }
-    
-    render(){
+
+    render() {
         return (
             <Fragment>
                 <NavLink onClick={this.props.logout} href="#">
@@ -31,4 +31,4 @@ const mapStateToProps = state => ({
     logout
 })
 
-export default connect(mapStateToProps, { logout})(Logout);
+export default connect(mapStateToProps, { logout })(Logout);

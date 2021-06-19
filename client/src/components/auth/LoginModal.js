@@ -8,7 +8,7 @@ import {
     Modal,
     ModalHeader,
     ModalBody,
-    Form, 
+    Form,
     FormGroup,
     Label,
     Input,
@@ -46,28 +46,28 @@ class LoginModal extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         const { email, password } = this.state;
-        this.props.login( email, password );
+        this.props.login(email, password);
     }
 
-    componentDidUpdate(prevProps){
-        const {error, isAuthenticated} = this.props;
+    componentDidUpdate(prevProps) {
+        const { error, isAuthenticated } = this.props;
 
-        if(error !== prevProps.error) {
+        if (error !== prevProps.error) {
             if (error.id === 'LOGIN_FAILED') {
-                this.setState({msg: error.msg})
-            }else{
-                this.setState({msg: null})
+                this.setState({ msg: error.msg })
+            } else {
+                this.setState({ msg: null })
             }
         }
 
         if (this.state.modal) {
-            if(isAuthenticated){
+            if (isAuthenticated) {
                 this.toggle();
             }
         }
     }
 
-    render(){
+    render() {
         return (
             <div>
                 <NavLink onClick={this.toggle} href="#"> Login </NavLink>
@@ -75,17 +75,17 @@ class LoginModal extends Component {
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalHeader toggle={this.toggle}> Login </ModalHeader>
                     <ModalBody>
-                        {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null }
+                        {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
-                                
+
                                 <Label for="email"> Email </Label>
                                 <Input type="email" name="email" id="email" placeholder="Email" onChange={this.onChange} className="mb-3"></Input>
 
                                 <Label for="password"> Password </Label>
                                 <Input type="password" name="password" id="password" placeholder="Password" onChange={this.onChange} className="mb-3"></Input>
 
-                                <Button color="dark" style={{marginTop: '1rem'}} type="submit" block>  Login </Button>
+                                <Button color="dark" style={{ marginTop: '1rem' }} type="submit" block>  Login </Button>
                             </FormGroup>
                         </Form>
                     </ModalBody>
@@ -95,9 +95,9 @@ class LoginModal extends Component {
     }
 }
 
-const mapStateToProps = ( state ) => ({
+const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     error: state.error,
     login
 });
-export default connect(mapStateToProps, {login})(LoginModal);
+export default connect(mapStateToProps, { login })(LoginModal);
