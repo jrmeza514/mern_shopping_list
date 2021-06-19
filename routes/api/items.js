@@ -31,8 +31,11 @@ router.post('/', auth, (req, res) => {
 
 router.delete('/:id', auth, (req, res) => {
     Item.findById(req.params.id)
-        .then(item => item.remove().then(() => res.json({ success: true })))
-        .catch(err => res.status(404).json({ success: false }))
+        .then(item => {
+            if(item.userId === req.user.id) item.remove().then(() => res.json({ success: true }));
+            else res.status(403).json({success: false, error: "User cannot delete this post"});
+        })
+        .catch(err => res.status(404).json({ success: false }));
 });
 
 module.exports = router;
