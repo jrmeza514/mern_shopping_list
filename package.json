@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
@@ -24,6 +24,12 @@
     "mongoose": "^5.12.13"
   },
   "devDependencies": {
+    "jest": "^27.0.5",
     "nodemon": "^2.0.7"
+  },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "client"
+    ]
   }
 }
