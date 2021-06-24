@@ -1,8 +1,7 @@
-import React, { Component, useState, Fragment } from 'react';
+import { useState } from 'react';
 import RegisterModal from './auth/RegisterModal';
 import LoginModal from './auth/LoginModal';
 import Logout from './auth/Logout';
-import { logout } from '../actions/authActions';
 import { connect } from 'react-redux';
 
 import  {

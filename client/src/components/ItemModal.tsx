@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import { addItem } from '../actions/ItemActions';
 

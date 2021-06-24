@@ -1,9 +1,8 @@
-import React, {Component, useEffect} from 'react';
+import {useEffect} from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {connect} from 'react-redux';
 import { getItems, deleteItem, addItem } from '../actions/ItemActions';
-import PropTypes from 'prop-types';
 import ItemModal from './ItemModal';
 import { IItemReduxProps, IShoppingList } from '../types/interfaces';
 
