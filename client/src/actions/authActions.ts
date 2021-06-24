@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
-import { IAuthForm, IAuthFunction, IUser } from '../types/interfaces';
+import { IAuthFunction } from '../types/interfaces';
+import { getItems } from './ItemActions';
 import {
     USER_LOADED,
     USER_LOADING,
@@ -9,7 +10,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     REGISTER_FAIL,
-    REGISTER_SUCCESS
+    REGISTER_SUCCESS,
+    GET_ITEMS
 } from '../actions/types';
 import { IConfigHeaders } from '../types/interfaces';
 
@@ -24,6 +26,7 @@ export const login = ({email, password}: IAuthFunction) => (dispatch: Function) 
     axios.post('/api/auth', body, config )
         .then( res => {
             dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+            dispatch(getItems());
         })
         .catch( err => {
             dispatch(returnErrors(err.response.data.msg, err.response.status, 'LOGIN_FAILED'));
@@ -35,6 +38,7 @@ export const login = ({email, password}: IAuthFunction) => (dispatch: Function) 
 // Logout Action
 export const logout = () => (dispatch: Function) => {
     dispatch({ type: LOGOUT_SUCCESS});
+    dispatch({ type: GET_ITEMS, payload: []});
 }
 
 export const register = ({name, email, password}: any) => (dispatch: Function) => {
