@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { connect } from 'react-redux';
 import { login } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
@@ -24,7 +24,9 @@ const LoginModal = ({isAuthenticated, error, login}: ILoginModal) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const toggle = () => setModal(!modal);
+    const toggle = useCallback(() => {
+        setModal(!modal);
+    }, [setModal,modal]);
 
     const handleOnEmailChange = (e: ITarget) => setEmail(e.target.value);
     const handleOnPasswordChange = (e: ITarget) => setPassword(e.target.value);
@@ -39,7 +41,7 @@ const LoginModal = ({isAuthenticated, error, login}: ILoginModal) => {
         else setMsg(null);
 
         if(modal && isAuthenticated) toggle();
-    }, [login]);
+    }, [login, setMsg, error, isAuthenticated, modal, toggle]);
 
     return (
         <div>

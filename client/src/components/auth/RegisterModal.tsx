@@ -1,5 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useCallback, useEffect, useState } from 'react';
 import { register, logout } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
 import { connect } from 'react-redux';
@@ -26,10 +25,10 @@ const RegisterModal = ({isAuthenticated, error, register, clearErrors}: IRegiste
     const [password, setPassword] = useState('');
     const [msg, setMsg] = useState(null);
 
-    const toggle = () => {
+    const toggle = useCallback(() => {
         clearErrors();
         setModal(!modal);
-    }
+    }, [modal, setModal, clearErrors]);
 
     const handleOnNameChange = (e: ITarget) => setName(e.target.value);
     const handleOnEmailChange = (e: ITarget) => setEmail(e.target.value);
@@ -46,7 +45,7 @@ const RegisterModal = ({isAuthenticated, error, register, clearErrors}: IRegiste
         else setMsg(null);
 
         if(modal && isAuthenticated) toggle();
-    }, []);
+    }, [error, setMsg, modal, isAuthenticated, toggle]);
     
     return (
         <div>
