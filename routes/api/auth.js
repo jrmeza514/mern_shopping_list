@@ -26,9 +26,9 @@ router.get('/user', auth, (req, res) =>{
  */
 
 router.post('/', (req, res) => {
+    const {email, password} = req.body;
     if (!email || !password) return res.status(400).json({msg: "Please enter all fields"});
-    
-    const { email, password}  = req.body;
+
     User.findOne({email}).then( user => {
         if(!user) return res.status(400).json({msg: "User does note exist"});
         const {id, name, email } = user;
