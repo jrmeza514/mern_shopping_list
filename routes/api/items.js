@@ -3,6 +3,7 @@ const auth = require('../../middleware/auth');
 const router = express.Router();
 
 const Item = require('../../models/Items');
+const List = require('../../models/List');
 
 /**
  * @route api/ites
@@ -23,9 +24,20 @@ router.get('/', auth, (req, res) => {
  * @access Authenticated users only.
  */
 router.post('/', auth, (req, res) => {
+    const {name, listId} = req.body;
     const userId = req.user.id;
-    const newItem = new Item({ name: req.body.name, userId });
-    newItem.save().then(item => res.json(item));
+    if(!name || !listId ) return res.status(401).json({error: {msg: "Params missing"}});
+    
+    List.findById(listId).then( list => {
+        if(list.userId != userId) return res.json({err: {msg: "This list does not belong to this user"}});
+
+        const newItem = new Item({ name, listId });
+        newItem.save().then(item => res.json(item));
+    })
+    .catch( e => {
+        res.json({error: {msg: "list not found"}});
+    });
+
 });
 
 /**
@@ -36,8 +48,7 @@ router.post('/', auth, (req, res) => {
  */
 router.delete('/:id', auth, (req, res) => {
     Item.findById(req.params.id).then(item => {
-        if(item.userId === req.user.id) item.remove().then(() => res.json({ success: true }));
-        else res.status(403).json({success: false, error: "User cannot delete this post"});
+        item.remove().then(() => res.json({ success: true }));
     })
     .catch(err => res.status(404).json({ success: false }));
 });

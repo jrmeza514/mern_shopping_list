@@ -2,6 +2,8 @@ import axios from 'axios';
 import { returnErrors } from './errorActions';
 import { IAuthFunction } from '../types/interfaces';
 import { getItems } from './ItemActions';
+import { getLists } from './listActions';
+
 import {
     USER_LOADED,
     USER_LOADING,
@@ -27,6 +29,7 @@ export const login = ({email, password}: IAuthFunction) => (dispatch: Function) 
         .then( res => {
             dispatch({ type: LOGIN_SUCCESS, payload: res.data });
             dispatch(getItems());
+            dispatch(getLists());
         })
         .catch( err => {
             dispatch(returnErrors(err.response.data.msg, err.response.status, 'LOGIN_FAILED'));

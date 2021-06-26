@@ -12,3 +12,7 @@ export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const GET_LIST = "GET_LIST";
+export const ADD_LIST = "ADD_LIST";
+export const DELETE_LIST = "DELETE_LIST";
+export const LIST_LOADING = "LIST_LOADING";

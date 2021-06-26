@@ -36,3 +36,24 @@ form * {
 .container{
   padding: 20px;
 }
+
+.sl-card-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sl-card-container .card-header {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30px;
+}
+.sl-card-container .card-header .left {
+  display: flex;
+}
+.sl-card-container .card {
+  margin: 10px 10px;
+  width: 400px;
+  max-width: 95vw;
+  display: inline-block;
+  flex-grow: 5;
+}
