@@ -5,17 +5,15 @@ import AppModal from './util/AppModal';
 import { IItemModal, ITarget } from '../types/interfaces';
 import { Button, TextField } from '@material-ui/core';
 
-const  ItemModal = ({addItem}: IItemModal) => {
+const  ItemModal = ({addItem, toggle, open, listId, listTitle}: IItemModal) => {
 
-    const [modal, setModal] = useState(false);
     const [name, setName] = useState('');
-    const toggle = () => setModal(!modal);
-
     const handleChangeName = (e: ITarget) => setName(e.target.value);
 
     const handleOnSubmit = (e: any) => {
+        if(!listId) return;
         e.preventDefault();
-        addItem(name);
+        addItem(name, listId);
         setName('');
         toggle();
     }
@@ -23,9 +21,8 @@ const  ItemModal = ({addItem}: IItemModal) => {
     return (
         <>
             <br/>
-            <Button variant="contained" color="secondary" onClick={toggle}>Add Item</Button>
-            <AppModal open={modal} toggle={toggle}>
-                <h3>Add New Item </h3>
+            <AppModal open={open} toggle={toggle}>
+                <h3>Add item to {listTitle}</h3>
                 <form onSubmit={e => handleOnSubmit(e)}> 
                     <TextField type="text" name="name" id="item" placeholder="Add a shopping item" onChange={handleChangeName} required/>
                     <Button type="submit" variant="contained" color="secondary">Submit</Button>
