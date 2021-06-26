@@ -77,7 +77,6 @@ export interface ITarget {
   }
   
   export interface IItemModal {
-    isAuthenticated: boolean;
     addItem(name: string): void;
   }
   

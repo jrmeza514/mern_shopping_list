@@ -6,15 +6,12 @@ import { IItemModal, IItemReduxProps, ITarget } from '../types/interfaces';
 import { Button, TextField } from '@material-ui/core';
 
 const  ItemModal = ({addItem}: IItemModal) => {
-    
+
     const [modal, setModal] = useState(false);
     const [name, setName] = useState('');
-
     const toggle = () => setModal(!modal);
 
-    const handleChangeName = (e: ITarget) => {
-        setName(e.target.value);
-    }
+    const handleChangeName = (e: ITarget) => setName(e.target.value);
 
     const handleOnSubmit = (e: any) => {
         e.preventDefault();
@@ -39,9 +36,5 @@ const  ItemModal = ({addItem}: IItemModal) => {
     )
     
 }
-const mapStateToProps = (state: IItemReduxProps) => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    item: state.item
-})
 
-export default connect(mapStateToProps, {addItem})(ItemModal);
+export default connect(null, {addItem})(ItemModal);
