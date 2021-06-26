@@ -20,9 +20,9 @@ router.get('/', auth, async (req, res) => {
         res.json(
             await Promise.all(
                 lists.map( async list => {
-                    const {id, title} = list;
-                    const items = await Item.find({listId: id});
-                    return {id, title, items }
+                    const {_id, title} = list;
+                    const items = await Item.find({listId: _id});
+                    return {_id, title, items }
                 })
             )
         );
@@ -64,4 +64,20 @@ router.get('/:id', auth, async (req, res) => {
     });
 });
 
+/**
+ * @route api/lists
+ * @type DELETE
+ * @desc Deletes specified item if the authenticated user is the owner.
+ * @access Authenticated users only.
+ */
+ router.delete('/:id', auth, async (req, res) => {
+    await List.findById(req.params.id).then(async list => {
+        if(list.userId != req.user.id) return res.status(403).json({success: false, error: "User cannot delete this post"});
+
+        list.remove().then(() => res.json({ success: true }));
+        const items = await Item.find({listId: list.id});
+        items.map( item => item.remove()); 
+    })
+    .catch(err => res.status(404).json({ success: false }));
+});
 module.exports = router;
