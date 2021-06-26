@@ -76,13 +76,13 @@ export interface ITarget {
   }
   
   export interface IItemReduxProps extends IAuthReduxProps {
-    item: {
+    shoppingList: {
       items: IExistingItem[];
     };
   }
   
   export interface IShoppingList {
-    item: {
+    shoppingList: {
       items: IExistingItem[];
     };
     getItems(): void;

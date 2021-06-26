@@ -6,8 +6,8 @@ import { IItemReduxProps, IShoppingList } from '../types/interfaces';
 import { IconButton, List, ListItem } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const ShoppingList = ( {item, isAuthenticated, getItems, deleteItem}: IShoppingList) => {
-    const {items} = item;
+const ShoppingList = ( {shoppingList, isAuthenticated, getItems, deleteItem}: IShoppingList) => {
+    const {items} = shoppingList;
     useEffect(() => {
         if(isAuthenticated) getItems();
     }, [getItems, isAuthenticated])
@@ -37,7 +37,7 @@ const ShoppingList = ( {item, isAuthenticated, getItems, deleteItem}: IShoppingL
 }
 
 const mapStateToProps = (state: IItemReduxProps) => ({
-    item: state.item,
+    shoppingList: state.shoppingList,
     isAuthenticated: state.auth.isAuthenticated
 })
 
