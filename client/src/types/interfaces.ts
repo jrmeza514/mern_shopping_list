@@ -66,13 +66,32 @@ export interface ITarget {
     name: string;
   }
   
+  export interface IExistingList {
+    _id: string;
+    title: string;
+    items: []
+  }
+
   export interface IItem {
     _id?: string;
     name: string;
   }
+
+  export interface IList{
+    _id?: string;
+    title: string
+  }
   
   export interface IItemModal {
-    addItem(name: string): void;
+    addItem(name: string, listId: string): void;
+    open: boolean,
+    toggle(): void,
+    listId: string | null,
+    listTitle: string | null
+  }
+
+  export interface IListModal {
+    addList(name: string): void;
   }
   
   export interface IItemReduxProps extends IAuthReduxProps {
@@ -80,13 +99,21 @@ export interface ITarget {
       items: IExistingItem[];
     };
   }
+
+  export interface IListReduxProps extends IAuthReduxProps {
+    shoppingList: {
+      lists: IExistingList[];
+    };
+  }
+  
   
   export interface IShoppingList {
     shoppingList: {
-      items: IExistingItem[];
+      lists: IExistingList[];
     };
-    getItems(): void;
-    deleteItem(id: string): void;
+    getLists(): void;
+    deleteList(id: string): void;
+    deleteItem(id: string, listId: string): void;
     isAuthenticated: boolean;
   }
   
