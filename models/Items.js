@@ -10,8 +10,9 @@ const ItemSchema = new Schema({
          type: Date,
          default: Date.now
     },
-    userId: {
-        type: String,
+    listId: {
+        type: Schema.Types.ObjectId,
+        ref: 'list',
         require: true
     }
 
