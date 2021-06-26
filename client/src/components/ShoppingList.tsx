@@ -1,44 +1,85 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import { getItems, deleteItem, addItem } from '../actions/ItemActions';
 import ItemModal from './ItemModal';
-import { IItemReduxProps, IShoppingList } from '../types/interfaces';
-import { IconButton, List, ListItem } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { IListReduxProps, IShoppingList, IItem, IExistingList } from '../types/interfaces';
+import { Card, IconButton, List, ListItem } from '@material-ui/core';
+import {Delete as DeleteIcon, Add as AddIcon} from '@material-ui/icons';
+import { getLists, deleteList } from '../actions/listActions';
+import { deleteItem } from '../actions/ItemActions';
+import CreateListModal from './CreateListModal';
 
-const ShoppingList = ( {shoppingList, isAuthenticated, getItems, deleteItem}: IShoppingList) => {
-    const {items} = shoppingList;
+const ShoppingList = ( {shoppingList, isAuthenticated, getLists, deleteList, deleteItem}: IShoppingList) => {
+    const {lists} = shoppingList;
     useEffect(() => {
-        if(isAuthenticated) getItems();
-    }, [getItems, isAuthenticated])
+        if(isAuthenticated) getLists();
+    }, [getLists, isAuthenticated])
 
-    const onDeleteClick = (id: string) => {
-        deleteItem(id);
+    const [listId, setListId] = useState<string | null>(null);
+    const [listTitle, setlistTitle] = useState<string | null>(null);
+    const [itemModalOpen, setItemModalOpen] = useState(false);
+    const toggle = () => {
+        setItemModalOpen(!itemModalOpen);  
     };
+
+    const onDeleteList = ( id: string | null  ) => {
+        if(!id) return;
+        const proceed = window.confirm("Are you sure you want to delete this list?");
+        if(proceed) deleteList(id);
+
+    }
     
+    const onDeleteItem = (id: string | null | undefined, listId: string | null | undefined ) => {
+        if(!id || !listId) return;
+        deleteItem(id, listId);
+    }
+
     if(!isAuthenticated) return null;
+
+    const addToList = ({title, _id}: IExistingList) => {
+        setListId(_id);
+        setlistTitle(title);
+        setItemModalOpen(true);
+    }
 
     return(
         <>
-            <ItemModal/>
-            <List>
-                {items.map(({_id, name}, index) => (
-                    <ListItem style={{padding: '0px'}} key={index}>
-                        <IconButton onClick={() => onDeleteClick(_id)}>
-                            <DeleteIcon fontSize="small"/>
-                        </IconButton>
-                        {name}
-                    </ListItem>
+            <CreateListModal/>
+            <ItemModal open={itemModalOpen} toggle={toggle} listId={listId} listTitle={listTitle}/>
+            <div className="sl-card-container">
+                {lists.map(({_id, title, items}) => (
+                    <Card key={_id} className="card">
+                        <div className="card-header">
+                            <div className="left">
+                                <h3>{title}</h3>
+                                <IconButton onClick={() => {addToList({title, _id, items})}} color="secondary">
+                                    <AddIcon fontSize="small"/>
+                                </IconButton>
+                            </div>
+                            <IconButton onClick={() => { onDeleteList(_id) }} color="secondary">
+                                <DeleteIcon fontSize="small"/>
+                            </IconButton>
+                        </div>
+                        <List>
+                            {items.map( (item: IItem) => (
+                                <ListItem key={item._id}>
+                                    <IconButton  onClick={() => onDeleteItem(item._id, _id)}>
+                                        <DeleteIcon fontSize="small"/>
+                                    </IconButton>
+                                    {item.name}
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Card>
                 ))}
-            </List>
+            </div>
         </>
     )
     
 }
 
-const mapStateToProps = (state: IItemReduxProps) => ({
+const mapStateToProps = (state: IListReduxProps) => ({
     shoppingList: state.shoppingList,
     isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps, {getItems, deleteItem, addItem})(ShoppingList);
+export default connect(mapStateToProps, {getLists, deleteList, deleteItem})(ShoppingList);
