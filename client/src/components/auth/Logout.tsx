@@ -1,17 +1,14 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { NavLink } from 'reactstrap';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/authActions';
 import { ILogoutProps } from '../../types/interfaces';
+import { Button } from '@material-ui/core';
 
 export const Logout = ({ logout }: ILogoutProps) => {
 
   return (
-    <Fragment>
-      <NavLink onClick={logout} href="#">
-        Logout
-      </NavLink>
-  </Fragment>
+    <Button color="inherit" onClick={logout}> Logout </Button>
   );
 };
 

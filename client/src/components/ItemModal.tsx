@@ -1,18 +1,9 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import { addItem } from '../actions/ItemActions';
-
-import {
-    Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    Form, 
-    FormGroup,
-    Label,
-    Input
-} from 'reactstrap';
+import AppModal from './util/AppModal';
 import { IItemModal, IItemReduxProps, ITarget } from '../types/interfaces';
+import { Button, TextField } from '@material-ui/core';
 
 const  ItemModal = ({addItem}: IItemModal) => {
     
@@ -34,24 +25,17 @@ const  ItemModal = ({addItem}: IItemModal) => {
     }
 
     return (
-        <div>
-            <Button color="dark" 
-                    style={{marginBottom: '2rem'}}
-                    onClick={toggle}>Add Item</Button>
-
-            <Modal isOpen={modal} toggle={toggle}>
-                <ModalHeader toggle={toggle}> Add to Shopping List </ModalHeader>
-                <ModalBody>
-                    <Form onSubmit={e => handleOnSubmit(e)}> 
-                        <FormGroup>
-                            <Label for="name">Shopping List Item</Label>
-                            <Input type="text" name="name" id="item" placeholder="Add a shopping item" onChange={handleChangeName} required></Input>
-                            <Button color="dark" style={{marginTop: '1rem'}} type="submit" block>  Submit</Button>
-                        </FormGroup>
-                    </Form>
-                </ModalBody>
-            </Modal>
-        </div>
+        <>
+            <br/>
+            <Button variant="contained" color="secondary" onClick={toggle}>Add Item</Button>
+            <AppModal open={modal} toggle={toggle}>
+                <h3>Add New Item </h3>
+                <form onSubmit={e => handleOnSubmit(e)}> 
+                    <TextField type="text" name="name" id="item" placeholder="Add a shopping item" onChange={handleChangeName} required/>
+                    <Button type="submit">Submit</Button>
+                </form>
+            </AppModal>
+        </>
     )
     
 }

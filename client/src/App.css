@@ -20,3 +20,16 @@
   opacity: 0.01;
   transition: opacity 100ms ease-in;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form * {
+ margin-bottom: 10px;
+}
+
+.content {
+  width:  100%;
+}

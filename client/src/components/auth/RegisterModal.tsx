@@ -2,20 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { register, logout } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
 import { connect } from 'react-redux';
-
-import {
-    Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    NavLink,
-    Alert
-} from 'reactstrap';
 import { E_Error, IAuthReduxProps, IRegisterModal, ITarget } from '../../types/interfaces';
+import AppModal from '../util/AppModal';
+import { TextField, Button } from '@material-ui/core';
 
 
 const RegisterModal = ({isAuthenticated, error, register, clearErrors}: IRegisterModal) => {
@@ -48,30 +37,19 @@ const RegisterModal = ({isAuthenticated, error, register, clearErrors}: IRegiste
     }, [error, setMsg, modal, isAuthenticated, toggle]);
     
     return (
-        <div>
-            <NavLink onClick={toggle} href="#"> Register </NavLink>
+        <>
+            <Button color="inherit" onClick={toggle}> Register </Button>
+            <AppModal open={modal} toggle={toggle}>
+                <form onSubmit={handleOnSubmit}>
+                    <TextField type="text" name="name" id="name" placeholder="Name" onChange={handleOnNameChange}/>
+                    <TextField type="email" name="email" id="email" placeholder="Email" onChange={handleOnEmailChange}/>
+                    <TextField type="password" name="password" id="password" placeholder="Password" onChange={handleOnPasswordChange} autoComplete='new-password'/>
 
-            <Modal isOpen={modal} toggle={toggle}>
-                <ModalHeader toggle={toggle}> Register </ModalHeader>
-                <ModalBody>
-                    {msg ? <Alert color="danger">{msg}</Alert> : null}
-                    <Form onSubmit={(e) => handleOnSubmit(e)}>
-                        <FormGroup>
-                            <Label for="name"> Name </Label>
-                            <Input type="text" name="name" id="name" placeholder="Name" onChange={handleOnNameChange} className="mb-3"></Input>
-
-                            <Label for="email"> Email </Label>
-                            <Input type="email" name="email" id="email" placeholder="Email" onChange={handleOnEmailChange} className="mb-3"></Input>
-
-                            <Label for="password"> Password </Label>
-                            <Input type="password" name="password" id="password" placeholder="Password" onChange={handleOnPasswordChange} className="mb-3" autocomplete='new-password'></Input>
-
-                            <Button color="dark" style={{ marginTop: '1rem' }} type="submit" block>  Register </Button>
-                        </FormGroup>
-                    </Form>
-                </ModalBody>
-            </Modal>
-        </div>
+                    <Button type="submit"> Register </Button>
+                </form>
+                
+            </AppModal>
+        </>
     )
     
 }

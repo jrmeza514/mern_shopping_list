@@ -2,23 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 import { connect } from 'react-redux';
 import { login } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
-
-import {
-    Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    NavLink,
-    Alert
-} from 'reactstrap';
 import { E_Error, IAuthReduxProps, ILoginModal, ITarget } from "../../types/interfaces";
+import AppModal from "../util/AppModal";
+import {Button, TextField} from '@material-ui/core';
 
 const LoginModal = ({isAuthenticated, error, login}: ILoginModal) => {
-
+    
     const [modal, setModal] = useState(false);
     const [msg, setMsg] = useState(null);
     const [email, setEmail] = useState('');
@@ -30,7 +19,7 @@ const LoginModal = ({isAuthenticated, error, login}: ILoginModal) => {
 
     const handleOnEmailChange = (e: ITarget) => setEmail(e.target.value);
     const handleOnPasswordChange = (e: ITarget) => setPassword(e.target.value);
-
+    
     const handleOnSubmit = (e: any) => {
         e.preventDefault();
         login({email, password});
@@ -44,28 +33,16 @@ const LoginModal = ({isAuthenticated, error, login}: ILoginModal) => {
     }, [login, setMsg, error, isAuthenticated, modal, toggle]);
 
     return (
-        <div>
-            <NavLink onClick={toggle} href="#"> Login </NavLink>
-
-            <Modal isOpen={modal} toggle={toggle}>
-                <ModalHeader toggle={toggle}> Login </ModalHeader>
-                <ModalBody>
-                    {msg ? <Alert color="danger">{msg}</Alert> : null}
-                    <Form onSubmit={(e) => handleOnSubmit(e)}>
-                        <FormGroup>
-
-                            <Label for="email"> Email </Label>
-                            <Input type="email" name="email" id="email" placeholder="Email" onChange={handleOnEmailChange} className="mb-3"></Input>
-
-                            <Label for="password"> Password </Label>
-                            <Input type="password" name="password" id="password" placeholder="Password" onChange={handleOnPasswordChange} className="mb-3"></Input>
-
-                            <Button color="dark" style={{ marginTop: '1rem' }} type="submit" block>  Login </Button>
-                        </FormGroup>
-                    </Form>
-                </ModalBody>
-            </Modal>
-        </div>
+        <>
+            <Button color="inherit" onClick={toggle}> Login </Button>
+            <AppModal open={modal} toggle={toggle}>
+                <form noValidate autoComplete="on" onSubmit={handleOnSubmit}>
+                    <TextField id="email" name="email" type="email" label="Email" onChange={handleOnEmailChange}/>
+                    <TextField id="password" label="Password" type="password" onChange={handleOnPasswordChange}/>
+                    <Button type="submit">Submit</Button>
+                </form>
+            </AppModal>
+        </>
     )
 }
 
