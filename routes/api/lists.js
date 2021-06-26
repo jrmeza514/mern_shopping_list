@@ -3,19 +3,48 @@ const auth = require('../../middleware/auth');
 const router = express.Router();
 
 const List = require('../../models/List');
+const Item = require('../../models/Items');
 const User = require('../../models/User');
+const { json } = require("express");
 
 /**
- * @route api/ites
+ * @route api/items
  * @type GET
  * @desc Sends all lists for the authenticted user. (Sorted by Dte)
  * @access Authenticted users only. 
  */
 
-router.get('/', auth, (req, res) => {
-    List.find({ userId: req.user.id }).then( lists => {
-        res.json(lists);
-    })
+router.get('/', auth, async (req, res) => {
+    let lists = await List.find({ userId: req.user.id });
+    if(!lists ) return res.status(404).json("No lists"); 
+        res.json(
+            await Promise.all(
+                lists.map( async list => {
+                    const {id, title} = list;
+                    const items = await Item.find({listId: id});
+                    return {id, title, items }
+                })
+            )
+        );
+});
+
+/**
+ * @route api/items
+ * @type GET
+ * @desc Sends list matching id.
+ * @access Authenticted users only. 
+ */
+
+router.get('/:id', auth, async (req, res) => {
+   try{
+    let list = await List.findById(req.params.id);
+    const {id, title} = list;
+    const items = await Item.find({listId: list.id});
+    res.json({id, title, items});
+   }
+   catch (e) {
+        res.json({error: {msg: "list not found"}});
+   }
 });
 
 /**
