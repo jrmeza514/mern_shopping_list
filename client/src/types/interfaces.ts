@@ -1,6 +1,6 @@
 export enum E_Error {
-    LOGING_FAIL = 'LOGIN_FAIL',
-    REGISTER_FAIL = 'REGISTER_FAIL'
+    LOGING_FAILED = 'LOGIN_FAILED',
+    REGISTER_FAILED = 'REGISTER_FAILED'
 }
 
 export interface ITarget {
@@ -8,11 +8,6 @@ export interface ITarget {
       value: React.SetStateAction<string>;
     };
     preventDefault(): void;
-  }
-  
-  // ERRORS
-  export interface IMsg {
-    msg: string | any;
   }
   
   // AUTH
@@ -42,7 +37,7 @@ export interface ITarget {
   
   export interface IError {
     id: E_Error;
-    msg: IMsg;
+    msg: string;
   }
   
   export interface IAuthReduxProps {

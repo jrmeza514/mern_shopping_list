@@ -3,14 +3,14 @@ import {connect} from 'react-redux';
 import { getItems, deleteItem, addItem } from '../actions/ItemActions';
 import ItemModal from './ItemModal';
 import { IItemReduxProps, IShoppingList } from '../types/interfaces';
-import { Button, IconButton, List, ListItem } from '@material-ui/core';
+import { IconButton, List, ListItem } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const ShoppingList = ( {item, isAuthenticated, getItems, deleteItem}: IShoppingList) => {
     const {items} = item;
     useEffect(() => {
-        getItems();
-    }, [getItems])
+        if(isAuthenticated) getItems();
+    }, [getItems, isAuthenticated])
 
     const onDeleteClick = (id: string) => {
         deleteItem(id);

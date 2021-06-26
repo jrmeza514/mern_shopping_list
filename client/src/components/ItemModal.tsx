@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 import { addItem } from '../actions/ItemActions';
 import AppModal from './util/AppModal';
-import { IItemModal, IItemReduxProps, ITarget } from '../types/interfaces';
+import { IItemModal, ITarget } from '../types/interfaces';
 import { Button, TextField } from '@material-ui/core';
 
 const  ItemModal = ({addItem}: IItemModal) => {
@@ -15,7 +15,6 @@ const  ItemModal = ({addItem}: IItemModal) => {
 
     const handleOnSubmit = (e: any) => {
         e.preventDefault();
-        console.log("Submit")
         addItem(name);
         setName('');
         toggle();

@@ -17,7 +17,7 @@ export default function checkErrorEvents(state = initialState, action: IAction )
             }
         case CLEAR_ERRORS: 
             return {
-                msg: {},
+                msg: null,
                 status: null,
                 id: null
             }

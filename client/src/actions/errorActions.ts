@@ -8,8 +8,6 @@ export const returnErrors = (msg: String, status: Number, id: any = null) => {
     }
 }
 
-export const clearErrors = () => {
-    return {
-        type: CLEAR_ERRORS
-    };
+export const clearErrors = () => (dispatch: Function) => {
+    dispatch({type: CLEAR_ERRORS });
 } 

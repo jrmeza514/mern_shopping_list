@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { register, logout } from '../../actions/authActions';
+import { register } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
 import { connect } from 'react-redux';
 import { E_Error, IAuthReduxProps, IRegisterModal, ITarget } from '../../types/interfaces';
@@ -12,7 +12,7 @@ const RegisterModal = ({isAuthenticated, error, register, clearErrors}: IRegiste
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [msg, setMsg] = useState(null);
+    const [msg, setMsg] = useState<string | null>(null);
 
     const toggle = useCallback(() => {
         clearErrors();
@@ -30,7 +30,7 @@ const RegisterModal = ({isAuthenticated, error, register, clearErrors}: IRegiste
     }
 
     useEffect(() => {
-        if (error.id === E_Error.REGISTER_FAIL) setMsg(error.msg.msg);
+        if (error.id === E_Error.REGISTER_FAILED) setMsg(error.msg);
         else setMsg(null);
 
         if(modal && isAuthenticated) toggle();
@@ -40,6 +40,7 @@ const RegisterModal = ({isAuthenticated, error, register, clearErrors}: IRegiste
         <>
             <Button color="inherit" onClick={toggle}> Register </Button>
             <AppModal open={modal} toggle={toggle}>
+                { msg ? <h4> {msg} </h4> : null }
                 <form onSubmit={handleOnSubmit}>
                     <TextField type="text" name="name" id="name" placeholder="Name" onChange={handleOnNameChange}/>
                     <TextField type="email" name="email" id="email" placeholder="Email" onChange={handleOnEmailChange}/>
@@ -60,4 +61,4 @@ const mapStateToProps = (state : IAuthReduxProps) => ({
     clearErrors
 })
 
-export default connect(mapStateToProps, { register, clearErrors, logout })(RegisterModal);
+export default connect(mapStateToProps, { register, clearErrors })(RegisterModal);
