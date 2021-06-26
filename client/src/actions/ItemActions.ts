@@ -1,4 +1,5 @@
 import axios from 'axios';
+import ItemModal from '../components/ItemModal';
 import { tokenConfig } from './authActions';
 
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING} from './types';
@@ -19,25 +20,31 @@ export const getItems = () => (dispatch: Function, getState: Function) => {
     });
 }
 
-export const deleteItem = (id: string) => (dispatch: Function, getState: Function) => {
+export const deleteItem = (id: string, listId: string) => (dispatch: Function, getState: Function) => {
     const config = tokenConfig(getState);
-
+    
     axios.delete(`/api/items/${id}`, config).then( res => {
         if(res.data.success){
             dispatch({
                 type: DELETE_ITEM,
-                payload: id
+                payload: {
+                    listId,
+                    itemId: id
+                }
             })
         }
     }).catch( e => console.log("err"))
 }
 
-export const addItem = (name: string) => (dispatch: Function, getState: Function) => {
+export const addItem = (name: string, listId: string) => (dispatch: Function, getState: Function) => {
     const config = tokenConfig(getState);
-    axios.post('/api/items', {name: name}, config).then( res => {
+    axios.post('/api/items', {name, listId }, config).then( res => {
        dispatch({
            type: ADD_ITEM,
-           payload: res.data
+           payload: {
+               listId,
+               item: res.data
+           }
        })
     })
 }
