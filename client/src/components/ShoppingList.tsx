@@ -22,8 +22,8 @@ const ShoppingList = ( {shoppingList, isAuthenticated, getItems, deleteItem}: IS
         <>
             <ItemModal/>
             <List>
-                {items.map( ({_id, name}) => (
-                    <ListItem style={{padding: '0px'}}>
+                {items.map(({_id, name}, index) => (
+                    <ListItem style={{padding: '0px'}} key={index}>
                         <IconButton onClick={() => onDeleteClick(_id)}>
                             <DeleteIcon fontSize="small"/>
                         </IconButton>
