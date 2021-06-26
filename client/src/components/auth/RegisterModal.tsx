@@ -45,8 +45,7 @@ const RegisterModal = ({isAuthenticated, error, register, clearErrors}: IRegiste
                     <TextField type="text" name="name" id="name" placeholder="Name" onChange={handleOnNameChange}/>
                     <TextField type="email" name="email" id="email" placeholder="Email" onChange={handleOnEmailChange}/>
                     <TextField type="password" name="password" id="password" placeholder="Password" onChange={handleOnPasswordChange} autoComplete='new-password'/>
-
-                    <Button type="submit"> Register </Button>
+                    <Button type="submit" variant="contained" color="secondary"> Register </Button>
                 </form>
                 
             </AppModal>

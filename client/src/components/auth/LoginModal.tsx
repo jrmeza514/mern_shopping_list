@@ -41,7 +41,7 @@ const LoginModal = ({isAuthenticated, error, login, clearErrors}: ILoginModal) =
                 <form noValidate autoComplete="on" onSubmit={handleOnSubmit}>
                     <TextField id="email" name="email" type="email" label="Email" onChange={handleOnEmailChange}/>
                     <TextField id="password" label="Password" type="password" onChange={handleOnPasswordChange}/>
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" variant="contained" color="secondary">Submit</Button>
                 </form>
             </AppModal>
         </>

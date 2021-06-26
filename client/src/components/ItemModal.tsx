@@ -28,7 +28,7 @@ const  ItemModal = ({addItem}: IItemModal) => {
                 <h3>Add New Item </h3>
                 <form onSubmit={e => handleOnSubmit(e)}> 
                     <TextField type="text" name="name" id="item" placeholder="Add a shopping item" onChange={handleChangeName} required/>
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" variant="contained" color="secondary">Submit</Button>
                 </form>
             </AppModal>
         </>
