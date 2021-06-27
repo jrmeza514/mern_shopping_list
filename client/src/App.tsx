@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { Component } from 'react';
 import AppNavBar from './components/header/AppNavBar';
 import { Provider } from 'react-redux';
