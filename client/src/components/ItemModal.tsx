@@ -22,9 +22,9 @@ const ItemModal = ({ addItem, toggle, open, listId, listTitle }: IItemModal) => 
         <>
             <br />
             <AppModal open={open} toggle={toggle}>
-                <h3>Add item to {listTitle}</h3>
+                <h3>Add to:  {listTitle}</h3>
                 <form onSubmit={e => handleOnSubmit(e)}>
-                    <TextField type="text" name="name" id="item" placeholder="Add a shopping item" onChange={handleChangeName} required />
+                    <TextField type="text" name="name" id="item" placeholder="Shopping Item" onChange={handleChangeName} required />
                     <Button type="submit" variant="contained" color="secondary">Submit</Button>
                 </form>
             </AppModal>

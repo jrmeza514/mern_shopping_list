@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
@@ -23,7 +23,7 @@ const AccountMenu = ({ logout, auth }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }} >
         <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
           <Avatar sx={{ width: 32, height: 32 }}
@@ -55,7 +55,7 @@ const AccountMenu = ({ logout, auth }) => {
           Logout
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
 }
 const mapStateToProps = (state) => ({

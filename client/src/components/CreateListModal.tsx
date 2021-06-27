@@ -24,9 +24,9 @@ const CreateListModal = ({ addList }: IListModal) => {
         <>
             <Button variant="contained" color="secondary" onClick={toggle} className="create-list-btn">Create New List</Button>
             <AppModal open={modal} toggle={toggle}>
-                <h3>Create new list. </h3>
+                <h3>Create New List </h3>
                 <form onSubmit={e => handleOnSubmit(e)}>
-                    <TextField type="text" name="name" id="item" placeholder="Add a shopping item" onChange={handleChangeName} required />
+                    <TextField type="text" name="name" id="item" placeholder="Shopping List Title" onChange={handleChangeName} required />
                     <Button type="submit" variant="contained" color="secondary">Submit</Button>
                 </form>
             </AppModal>

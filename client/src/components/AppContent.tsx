@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { IAppNavbar, IAuthReduxProps } from '../types/interfaces';
-import ShoppingList from './ShoppingList';
+import ShoppingList from './shopping/ShoppingList';
 import AuthFormTabs from './auth/AuthFormTabs';
 
 const AppNavBar = ({ auth }: IAppNavbar) => {
