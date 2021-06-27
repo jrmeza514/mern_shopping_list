@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import RegisterModal from './auth/RegisterModal';
-import LoginModal from './auth/LoginModal';
 import Logout from './auth/Logout';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -41,8 +39,7 @@ const AppNavBar = ({auth}: IAppNavbar) => {
                     <Typography variant="h6" className={classes.title}>
                         Shopping List
                     </Typography>
-                    { auth?.isAuthenticated ? <Logout/> : <LoginModal/>}
-                    { auth?.isAuthenticated ? null : <RegisterModal/>}
+                    { auth?.isAuthenticated ? <Logout/> : null }
 
                 </Toolbar>
             </AppBar>
