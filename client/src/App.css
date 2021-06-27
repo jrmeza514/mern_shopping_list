@@ -45,9 +45,10 @@ form * {
 .sl-card-container .card-header {
   display: flex;
   justify-content: space-between;
-  padding-left: 30px;
+  padding: 0 16px;
 }
 .sl-card-container .card-header .left {
+  padding-left: 14px;
   display: flex;
 }
 .sl-card-container .card {

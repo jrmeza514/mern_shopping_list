@@ -4,6 +4,7 @@ import ItemModal from './ItemModal';
 import { IListReduxProps, IShoppingList, IItem, IExistingList } from '../types/interfaces';
 import { Card, IconButton, List, ListItem } from '@material-ui/core';
 import {Delete as DeleteIcon, Add as AddIcon} from '@material-ui/icons';
+import Web from '@material-ui/icons/AddShoppingCart';
 import { getLists, deleteList } from '../actions/listActions';
 import { deleteItem } from '../actions/ItemActions';
 import CreateListModal from './CreateListModal';
@@ -61,11 +62,17 @@ const ShoppingList = ( {shoppingList, isAuthenticated, getLists, deleteList, del
                         </div>
                         <List>
                             {items.map( (item: IItem) => (
-                                <ListItem key={item._id}>
-                                    <IconButton  onClick={() => onDeleteItem(item._id, _id)}>
+                                <ListItem key={item._id} style={{display: 'flex', justifyContent:'space-between'}}>
+                                    <div className="left">
+                                        
+                                        <IconButton color="primary" target="_blank" href={`https://www.amazon.com/s?k=${item.name.split(" ").join("+")}`}>
+                                            <Web fontSize="small"/>
+                                        </IconButton>
+                                        {item.name}
+                                    </div>
+                                    <IconButton  onClick={() => onDeleteItem(item._id, _id)} color="secondary">
                                         <DeleteIcon fontSize="small"/>
                                     </IconButton>
-                                    {item.name}
                                 </ListItem>
                             ))}
                         </List>
