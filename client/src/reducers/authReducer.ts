@@ -16,7 +16,7 @@ const initialState = {
     user: null
 };
 
-export default function checkAuthEvents( state = initialState, action: any ) {
+export default function checkAuthEvents(state = initialState, action: any) {
     switch (action.type) {
         case USER_LOADING:
             return {
@@ -41,15 +41,15 @@ export default function checkAuthEvents( state = initialState, action: any ) {
                 isAuthenticated: true
             }
 
-        case AUTH_ERROR: 
+        case AUTH_ERROR:
         case LOGIN_FAIL:
-        case REGISTER_FAIL:  
+        case REGISTER_FAIL:
         case LOGOUT_SUCCESS:
             localStorage.removeItem('token');
-            return { 
+            return {
                 ...state,
                 token: null,
-                user: null, 
+                user: null,
                 isAuthenticated: false,
                 isLoading: false
             }

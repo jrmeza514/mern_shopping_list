@@ -8,14 +8,15 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Settings from '@material-ui/icons/Settings';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
-import {logout} from '../../actions/authActions';
+import { logout } from '../../actions/authActions';
 import { connect } from 'react-redux';
+import theme from '../../theme/main';
 
-const  AccountMenu = ({logout, auth}) => {
+const AccountMenu = ({ logout, auth }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [accoutnMenuOpen, setAccountMenuOpen] = useState(false);
   const handleClose = () => setAccountMenuOpen(false);
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.target);
     setAccountMenuOpen(!accoutnMenuOpen);
@@ -25,7 +26,10 @@ const  AccountMenu = ({logout, auth}) => {
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }} >
         <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
-          <Avatar sx={{ width: 32, height: 32 }}>{auth.user.name[0]}</Avatar>
+          <Avatar sx={{ width: 32, height: 32 }}
+            style={{ backgroundColor: theme.palette.secondary.main }}>
+            {auth.user.name[0]}
+          </Avatar>
         </IconButton>
       </Box>
       <Menu
@@ -57,4 +61,4 @@ const  AccountMenu = ({logout, auth}) => {
 const mapStateToProps = (state) => ({
   auth: state.auth
 });
-export default connect(mapStateToProps, {logout})(AccountMenu);
+export default connect(mapStateToProps, { logout })(AccountMenu);

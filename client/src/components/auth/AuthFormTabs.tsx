@@ -61,22 +61,22 @@ export default function SimpleTabs() {
 
   return (
     <div className={`${classes.root} tabbed-auth-forms`}>
-        <Card>
-          <AppBar position="static">
-              <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-              <Tab label="Login" {...a11yProps(0)} />
-              <Tab label="Register" {...a11yProps(1)} />
-              </Tabs>
-          </AppBar>
-          <div className="panels">
-              <TabPanel value={value} index={0} >
-                  <LoginForm/>
-              </TabPanel>
-              <TabPanel value={value} index={1}>
-                <RegisterForm/>
-              </TabPanel>
-          </div>
-        </Card>
+      <Card>
+        <AppBar position="static">
+          <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+            <Tab label="Login" {...a11yProps(0)} />
+            <Tab label="Register" {...a11yProps(1)} />
+          </Tabs>
+        </AppBar>
+        <div className="panels">
+          <TabPanel value={value} index={0} >
+            <LoginForm />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <RegisterForm />
+          </TabPanel>
+        </div>
+      </Card>
     </div>
   );
 }

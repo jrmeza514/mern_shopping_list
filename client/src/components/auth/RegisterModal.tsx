@@ -7,7 +7,7 @@ import AppModal from '../util/AppModal';
 import { TextField, Button } from '@material-ui/core';
 
 
-const RegisterModal = ({isAuthenticated, error, register, clearErrors}: IRegisterModal) => {
+const RegisterModal = ({ isAuthenticated, error, register, clearErrors }: IRegisterModal) => {
     const [modal, setModal] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -33,27 +33,27 @@ const RegisterModal = ({isAuthenticated, error, register, clearErrors}: IRegiste
         if (error.id === E_Error.REGISTER_FAILED) setMsg(error.msg);
         else setMsg(null);
 
-        if(modal && isAuthenticated) toggle();
+        if (modal && isAuthenticated) toggle();
     }, [error, setMsg, modal, isAuthenticated, toggle]);
-    
+
     return (
         <>
             <Button color="inherit" onClick={toggle}> Register </Button>
             <AppModal open={modal} toggle={toggle}>
-                { msg ? <h4> {msg} </h4> : null }
+                {msg ? <h4> {msg} </h4> : null}
                 <form onSubmit={handleOnSubmit}>
-                    <TextField type="text" name="name" id="name" placeholder="Name" onChange={handleOnNameChange}/>
-                    <TextField type="email" name="email" id="email" placeholder="Email" onChange={handleOnEmailChange}/>
-                    <TextField type="password" name="password" id="password" placeholder="Password" onChange={handleOnPasswordChange} autoComplete='new-password'/>
+                    <TextField type="text" name="name" id="name" placeholder="Name" onChange={handleOnNameChange} />
+                    <TextField type="email" name="email" id="email" placeholder="Email" onChange={handleOnEmailChange} />
+                    <TextField type="password" name="password" id="password" placeholder="Password" onChange={handleOnPasswordChange} autoComplete='new-password' />
                     <Button type="submit" variant="contained" color="secondary"> Register </Button>
                 </form>
-                
+
             </AppModal>
         </>
     )
-    
+
 }
-const mapStateToProps = (state : IAuthReduxProps) => ({
+const mapStateToProps = (state: IAuthReduxProps) => ({
     isAuthenticated: state.auth.isAuthenticated,
     error: state.error,
     register,

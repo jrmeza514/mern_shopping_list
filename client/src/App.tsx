@@ -10,23 +10,23 @@ import AppContent from './components/AppContent';
 
 class App extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     store.dispatch(loadUser());
   }
-  
-  render () {
+
+  render() {
     return (
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <div className="App">
-            <AppNavBar/>
-            <AppContent/>
+            <AppNavBar />
+            <AppContent />
           </div>
         </ThemeProvider>
       </Provider>
     )
   }
-    
+
 }
 
 export default App;

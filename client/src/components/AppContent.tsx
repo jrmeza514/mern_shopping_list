@@ -3,18 +3,18 @@ import { IAppNavbar, IAuthReduxProps } from '../types/interfaces';
 import ShoppingList from './ShoppingList';
 import AuthFormTabs from './auth/AuthFormTabs';
 
-const AppNavBar = ({auth}: IAppNavbar) => {
-    
-    
+const AppNavBar = ({ auth }: IAppNavbar) => {
+
+
     return (
         <div className="container">
-            {auth?.isAuthenticated ? <ShoppingList/> : <AuthFormTabs/>}
+            {auth?.isAuthenticated ? <ShoppingList /> : <AuthFormTabs />}
         </div>
-    ) 
+    )
 }
 
-const mapStateToProps = ( state: IAuthReduxProps ) => ({
+const mapStateToProps = (state: IAuthReduxProps) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps,null)(AppNavBar);
+export default connect(mapStateToProps, null)(AppNavBar);

@@ -7,8 +7,8 @@ const ItemSchema = new Schema({
         require: true
     },
     date: {
-         type: Date,
-         default: Date.now
+        type: Date,
+        default: Date.now
     },
     listId: {
         type: Schema.Types.ObjectId,

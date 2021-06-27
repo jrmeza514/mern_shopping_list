@@ -7,28 +7,28 @@ interface ModalProps {
     children: any
 }
 
-const AppModal =  ( props:ModalProps ) =>  {
-        return (
-            <>
-                <Modal
-                    open={props.open}
-                    onClose={() => {props.toggle()}}>
-                    
-                    <Card 
-                        style={{
-                            width: '95vw',
-                            maxWidth: '400px',
-                            margin: 'auto',
-                            marginTop: '10vh',
-                            display: 'flex'
-                        }}>
-                        <CardContent className="content">
-                            {props.children}
-                        </CardContent>
-                    </Card>
-                </Modal>
-            </>
-        )
+const AppModal = (props: ModalProps) => {
+    return (
+        <>
+            <Modal
+                open={props.open}
+                onClose={() => { props.toggle() }}>
+
+                <Card
+                    style={{
+                        width: '95vw',
+                        maxWidth: '400px',
+                        margin: 'auto',
+                        marginTop: '10vh',
+                        display: 'flex'
+                    }}>
+                    <CardContent className="content">
+                        {props.children}
+                    </CardContent>
+                </Card>
+            </Modal>
+        </>
+    )
 }
 
 export default AppModal;

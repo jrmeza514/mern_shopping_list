@@ -6,7 +6,7 @@ import { E_Error, IAuthReduxProps, IRegisterModal, ITarget } from '../../types/i
 import { TextField, Button } from '@material-ui/core';
 
 
-const RegisterForm = ({isAuthenticated, error, register, clearErrors}: IRegisterModal) => {
+const RegisterForm = ({ isAuthenticated, error, register, clearErrors }: IRegisterModal) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -26,24 +26,24 @@ const RegisterForm = ({isAuthenticated, error, register, clearErrors}: IRegister
         if (error.id === E_Error.REGISTER_FAILED) setMsg(error.msg);
         else setMsg(null);
 
-        
+
     }, [error, setMsg, isAuthenticated]);
-    
+
     return (
         <>
-            { msg ? <h4> {msg} </h4> : null }
+            {msg ? <h4> {msg} </h4> : null}
             <form onSubmit={handleOnSubmit}>
-                <TextField type="text" name="name" id="name" label="Name" onChange={handleOnNameChange}/>
-                <TextField type="email" name="email" id="email" label="Email" onChange={handleOnEmailChange}/>
-                <TextField type="password" name="password" id="password" label="Password" onChange={handleOnPasswordChange} autoComplete='new-password'/>
-                <br/>
+                <TextField type="text" name="name" id="name" label="Name" onChange={handleOnNameChange} />
+                <TextField type="email" name="email" id="email" label="Email" onChange={handleOnEmailChange} />
+                <TextField type="password" name="password" id="password" label="Password" onChange={handleOnPasswordChange} autoComplete='new-password' />
+                <br />
                 <Button type="submit" variant="contained" color="secondary"> Register </Button>
-            </form>     
+            </form>
         </>
     )
-    
+
 }
-const mapStateToProps = (state : IAuthReduxProps) => ({
+const mapStateToProps = (state: IAuthReduxProps) => ({
     isAuthenticated: state.auth.isAuthenticated,
     error: state.error,
     register,

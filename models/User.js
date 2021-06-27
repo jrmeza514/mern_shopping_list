@@ -20,7 +20,7 @@ const UserSchema = new Schema({
         default: Date.now
     },
     lists: [
-        {type: Schema.Types.ObjectId, ref: 'list', require: true}
+        { type: Schema.Types.ObjectId, ref: 'list', require: true }
     ]
 });
 
