@@ -1,5 +1,5 @@
 import { GET_LIST, ADD_LIST, DELETE_LIST, LIST_LOADING, ADD_ITEM, DELETE_ITEM } from '../actions/types'
-import { IAction, IExistingItem, IExistingList, IList } from '../types/interfaces';
+import { IAction, IExistingItem, IExistingList } from '../types/interfaces';
 
 const initialState = {
     lists: [],
@@ -38,7 +38,7 @@ export default function checkItemEvents( state:IState = initialState, action:IAc
             return {
                 ...state,
                 lists: state.lists.map( (list: IExistingList) => {
-                    if(list._id != action.payload.listId) return list;
+                    if(`${list._id}` !== action.payload.listId) return list;
                     
                     return {
                         ...list,
@@ -55,12 +55,12 @@ export default function checkItemEvents( state:IState = initialState, action:IAc
             return {
                 ...state,
                 lists: state.lists.map( (list: IExistingList) => {
-                    if(list._id != action.payload.listId) return list;
+                    if(`${list._id}` !== action.payload.listId) return list;
                     
                     return {
                         ...list,
                         items: list.items.filter( (item: IExistingItem) => {
-                            return item._id != action.payload.itemId
+                            return `${item._id}` !== action.payload.itemId
                         })
                     }
                 })
