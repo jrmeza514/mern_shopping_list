@@ -1,5 +1,4 @@
 import axios from 'axios';
-import ItemModal from '../components/ItemModal';
 import { tokenConfig } from './authActions';
 
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING} from './types';
