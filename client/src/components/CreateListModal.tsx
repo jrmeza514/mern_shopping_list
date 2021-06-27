@@ -22,8 +22,7 @@ const  CreateListModal = ({addList}: IListModal) => {
 
     return (
         <>
-            <br/>
-            <Button variant="contained" color="secondary" onClick={toggle}>Create New List</Button>
+            <Button variant="contained" color="secondary" onClick={toggle} className="create-list-btn">Create New List</Button>
             <AppModal open={modal} toggle={toggle}>
                 <h3>Create new list. </h3>
                 <form onSubmit={e => handleOnSubmit(e)}> 
