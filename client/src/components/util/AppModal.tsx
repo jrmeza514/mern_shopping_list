@@ -22,7 +22,7 @@ const AppModal = (props: ModalProps) => {
                         marginTop: '10vh',
                         display: 'flex'
                     }}>
-                    <CardContent className="content">
+                    <CardContent className="modal-card-content">
                         {props.children}
                     </CardContent>
                 </Card>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { connect } from 'react-redux';
 import { login } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
@@ -12,7 +12,7 @@ const LoginForm = ({ isAuthenticated, error, login, clearErrors }: ILoginModal) 
     const handleOnEmailChange = (e: ITarget) => setEmail(e.target.value);
     const handleOnPasswordChange = (e: ITarget) => setPassword(e.target.value);
 
-    const handleOnSubmit = (e: any) => {
+    const handleOnSubmit = (e: FormEvent) => {
         e.preventDefault();
         login({ email, password });
     }
@@ -26,7 +26,7 @@ const LoginForm = ({ isAuthenticated, error, login, clearErrors }: ILoginModal) 
     return (
         <>
             {msg ? <h4> {msg} </h4> : null}
-            <form noValidate autoComplete="on" onSubmit={handleOnSubmit}>
+            <form noValidate autoComplete="on" onSubmit={handleOnSubmit} className="auth-form">
                 <TextField id="email" name="email" type="email" label="Email" onChange={handleOnEmailChange} />
                 <TextField id="password" label="Password" type="password" onChange={handleOnPasswordChange} />
                 <br />

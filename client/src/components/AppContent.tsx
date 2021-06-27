@@ -7,7 +7,7 @@ const AppNavBar = ({ auth }: IAppNavbar) => {
 
 
     return (
-        <div className="container">
+        <div className="app-content-container">
             {auth?.isAuthenticated ? <ShoppingList /> : <AuthFormTabs />}
         </div>
     )
