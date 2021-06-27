@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import Logout from './auth/Logout';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import {Menu as MenuIcon, Mail as MailIcon} from '@material-ui/icons';
-import { IAppNavbar, IAuthReduxProps } from '../types/interfaces';
-
+import { IAppNavbar, IAuthReduxProps } from '../../types/interfaces';
+import AccountMenu from './AccountMenu';
 import { List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer,
         AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 
@@ -39,7 +38,7 @@ const AppNavBar = ({auth}: IAppNavbar) => {
                     <Typography variant="h6" className={classes.title}>
                         Shopping List
                     </Typography>
-                    { auth?.isAuthenticated ? <Logout/> : null }
+                    { auth?.isAuthenticated ? <AccountMenu/> : null }
 
                 </Toolbar>
             </AppBar>

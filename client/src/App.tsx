@@ -1,6 +1,6 @@
 import './App.css';
 import { Component } from 'react';
-import AppNavBar from './components/AppNavBar';
+import AppNavBar from './components/header/AppNavBar';
 import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/authActions';
