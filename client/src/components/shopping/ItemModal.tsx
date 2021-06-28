@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { addItem } from '../actions/ItemActions';
-import AppModal from './util/AppModal';
-import { IItemModal, ITarget } from '../types/interfaces';
+import { addItem } from '../../actions/ItemActions';
+import AppModal from '../util/AppModal';
+import { IItemModal, ITarget } from '../../types/interfaces';
 import { Button, TextField } from '@material-ui/core';
 
 const ItemModal = ({ addItem, toggle, open, listId, listTitle }: IItemModal) => {

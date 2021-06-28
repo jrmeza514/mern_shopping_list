@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import ItemModal from '../ItemModal';
+import ItemModal from './ItemModal';
 import { IListReduxProps, IShoppingList } from '../../types/interfaces';
 import { Card } from '@material-ui/core';
 import { getLists, deleteList } from '../../actions/listActions';
 import { deleteItem } from '../../actions/ItemActions';
-import CreateListModal from '../CreateListModal';
+import CreateListModal from './CreateListModal';
 import ShoppingListHeader from './ShoppingListHeader';
 import ShoppingListBody from './ShoppingListBody';
 

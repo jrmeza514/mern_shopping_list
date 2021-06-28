@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { addList } from '../actions/listActions';
-import AppModal from './util/AppModal';
-import { IListModal, ITarget } from '../types/interfaces';
+import { addList } from '../../actions/listActions';
+import AppModal from '../util/AppModal';
+import { IListModal, ITarget } from '../../types/interfaces';
 import { Button, TextField } from '@material-ui/core';
 
 const CreateListModal = ({ addList }: IListModal) => {
