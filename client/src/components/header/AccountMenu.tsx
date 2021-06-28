@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
@@ -6,28 +6,36 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Settings from '@material-ui/icons/Settings';
+import { Settings, AccountCircle as AvatarIcon } from '@material-ui/icons';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 import { logout } from '../../actions/authActions';
 import { connect } from 'react-redux';
-import theme from '../../theme/main';
+import { IAuthReduxProps } from '../../types/interfaces';
 
-const AccountMenu = ({ logout, auth }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
+interface AccountMenuProps {
+  logout(): void;
+  auth: {
+    user: {
+      name: string
+    }
+  }
+}
+
+const AccountMenu = ({ auth, logout }: AccountMenuProps) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [accoutnMenuOpen, setAccountMenuOpen] = useState(false);
   const handleClose = () => setAccountMenuOpen(false);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.target);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
     setAccountMenuOpen(!accoutnMenuOpen);
   };
 
   return (
     <>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }} >
-        <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
-          <Avatar sx={{ width: 32, height: 32 }}
-            style={{ backgroundColor: theme.palette.secondary.main }}>
+      <Box>
+        <IconButton onClick={handleClick} size="small" >
+          <Avatar>
             {auth.user.name[0]}
           </Avatar>
         </IconButton>
@@ -39,7 +47,10 @@ const AccountMenu = ({ logout, auth }) => {
         onClick={handleClose}
       >
         <MenuItem disabled>
-          <Avatar /> My account
+          <ListItemIcon>
+            <AvatarIcon fontSize="small" />
+          </ListItemIcon>
+          My account
         </MenuItem>
         <Divider />
         <MenuItem disabled>
@@ -58,7 +69,7 @@ const AccountMenu = ({ logout, auth }) => {
     </>
   );
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: IAuthReduxProps) => ({
   auth: state.auth
 });
 export default connect(mapStateToProps, { logout })(AccountMenu);

@@ -41,7 +41,12 @@ export interface IError {
 }
 
 export interface IAuthReduxProps {
-  auth: { isAuthenticated: boolean };
+  auth: {
+    isAuthenticated: boolean;
+    user: {
+      name: string
+    }
+  };
   error: IError;
 }
 
