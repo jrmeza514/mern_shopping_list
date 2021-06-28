@@ -1,7 +1,7 @@
 import React from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { IconButton } from '@material-ui/core';
+import { IconButton, ListItemIcon } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -45,7 +45,10 @@ export default function ShoppingListContextMenu({ deleteList }: ShoppingListCont
                 onClose={handleClose}>
 
                 <MenuItem onClick={deleteParentList}>
-                    <DeleteIcon fontSize="small" color="primary" /> Delete List
+                    <ListItemIcon className="context-menu-icon">
+                        <DeleteIcon fontSize="small" color="primary" />
+                    </ListItemIcon>
+                    Delete List
                 </MenuItem>
             </Menu>
         </div>
