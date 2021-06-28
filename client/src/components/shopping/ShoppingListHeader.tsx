@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
 import { deleteList } from '../../actions/listActions';
 import ShoppingListContextMenu from './ShoppingListContextMenu';
@@ -24,7 +24,7 @@ const ShoppingListHeader = ({ deleteList, title, _id, addToList }: ShoppingListH
     return (
         <div className="card-header">
             <div className="left">
-                <h3>{title}</h3>
+                <Typography className="sl-title" component="div"> {title} </Typography>
                 <IconButton onClick={() => { addToList(title, _id) }} color="secondary">
                     <AddIcon fontSize="small" />
                 </IconButton>

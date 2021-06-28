@@ -1,6 +1,12 @@
 
 .app-content-container{
   padding: 20px;
+
+  
+}
+
+.MuiButton-root.create-list-btn{
+  margin: 10px;
 }
 
 .tabbed-auth-forms{
@@ -18,9 +24,7 @@
   }
 }
 
-.create-list-btn{
-  margin-left: 10px;
-}
+
 
 .sl-card-container{
   display: flex;
@@ -29,10 +33,19 @@
     display: flex;
     justify-content: space-between;
     padding: 0 16px;
+
+    .sl-title{
+      font-weight: 600;
+      font-size: 1.3em;
+      text-transform: capitalize;
+    }
+
   }
 
   .left {
     display: flex;
+    align-items: center;
+
   }
 
   .card {
