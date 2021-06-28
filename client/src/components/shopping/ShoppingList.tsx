@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import ItemModal from './ItemModal';
-import { IListReduxProps, IShoppingList } from '../../types/interfaces';
+import { IExistingList, IListReduxProps, IShoppingList } from '../../types/interfaces';
 import { Card } from '@material-ui/core';
 import { getLists, deleteList } from '../../actions/listActions';
 import { deleteItem } from '../../actions/ItemActions';
@@ -83,27 +83,29 @@ const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteList, del
             <CreateListModal />
             <ItemModal open={itemModalOpen} toggle={toggle} listId={listId} listTitle={listTitle} />
             <div className="sl-card-container">
-                {lists.map(({ _id, title, items }) => {
-                    const colIndex = getIndexOfSmallestColumn(columns);
-                    let transYVal = columns[colIndex];
-                    let transXVal = (colIndex * cardWidth) + SPACE_BETWEEN_ITEMTS * colIndex;
+                {
+                    lists.sort((a: IExistingList, b: IExistingList) => { return b.items.length - a.items.length })
+                        .map(({ _id, title, items }) => {
+                            const colIndex = getIndexOfSmallestColumn(columns);
+                            let transYVal = columns[colIndex];
+                            let transXVal = (colIndex * cardWidth) + SPACE_BETWEEN_ITEMTS * colIndex;
 
-                    columns[colIndex] += items.length * ITEM_HEIGTH_MULTIPLIER + STATIC_HEIGHT_MODIFIER;
+                            columns[colIndex] += items.length * ITEM_HEIGTH_MULTIPLIER + STATIC_HEIGHT_MODIFIER;
 
 
-                    return (
-                        <Card key={_id} className="card" style={{
-                            width: cardWidth,
-                            transform: `
+                            return (
+                                <Card key={_id} className="card" style={{
+                                    width: cardWidth,
+                                    transform: `
                             translateX(${transXVal}px)
                             translateY(${transYVal}px)
                             `
-                        }}>
-                            <ShoppingListHeader title={title} _id={_id} addToList={addToList}></ShoppingListHeader>
-                            <ShoppingListBody items={items} deleteItem={deleteItem} listId={_id} />
-                        </Card>
-                    )
-                })}
+                                }}>
+                                    <ShoppingListHeader title={title} _id={_id} addToList={addToList}></ShoppingListHeader>
+                                    <ShoppingListBody items={items} deleteItem={deleteItem} listId={_id} />
+                                </Card>
+                            )
+                        })}
             </div>
         </>
     )
