@@ -38,7 +38,7 @@ const AppNavBar = ({ auth }: IAppNavbar) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        Shopping List
+                        <a href="/">Shopping List</a>
                     </Typography>
                     {auth?.isAuthenticated ? <AccountMenu /> : null}
 
