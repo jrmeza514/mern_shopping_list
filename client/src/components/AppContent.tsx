@@ -4,10 +4,8 @@ import ShoppingList from './shopping/ShoppingList';
 import AuthFormTabs from './auth/AuthFormTabs';
 
 import {
-    BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 
 interface AppContentProps {
