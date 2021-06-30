@@ -26,16 +26,14 @@ const AppContent = ({ auth }: AppContentProps) => {
                     if (auth) {
                         if (auth.isAuthenticated && !auth.isLoading) {
                             return (
-                                <Router>
-                                    <Switch>
-                                        <Route path="/settings">
-                                            Settings
-                                        </Route>
-                                        <Route path="/">
-                                            <ShoppingList />
-                                        </Route>
-                                    </Switch>
-                                </Router>
+                                <Switch>
+                                    <Route path="/settings">
+                                        Settings
+                                    </Route>
+                                    <Route path="/">
+                                        <ShoppingList />
+                                    </Route>
+                                </Switch>
                             )
                         } else if (!auth.isLoading && !auth.isAuthenticated) {
                             return <AuthFormTabs />

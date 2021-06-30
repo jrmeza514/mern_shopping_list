@@ -56,12 +56,12 @@ const AccountMenu = ({ auth, logout }: AccountMenuProps) => {
         </MenuItem>
         <Divider />
         <MenuItem >
-          <a href="/settings">
+          <Link to="/settings">
             <ListItemIcon>
               <Settings fontSize="small" />
             </ListItemIcon>
             Settings
-          </a>
+          </Link>
         </MenuItem>
         <MenuItem onClick={logout}>
           <ListItemIcon>
