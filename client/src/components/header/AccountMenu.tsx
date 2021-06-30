@@ -12,6 +12,7 @@ import { logout } from '../../actions/authActions';
 import { connect } from 'react-redux';
 import { IAuthReduxProps } from '../../types/interfaces';
 import theme from '../../theme/main';
+import { Link } from 'react-router-dom';
 
 interface AccountMenuProps {
   logout(): void;
@@ -54,11 +55,13 @@ const AccountMenu = ({ auth, logout }: AccountMenuProps) => {
           My account
         </MenuItem>
         <Divider />
-        <MenuItem disabled>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
+        <MenuItem >
+          <Link to="/settings">
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Settings
+          </Link>
         </MenuItem>
         <MenuItem onClick={logout}>
           <ListItemIcon>

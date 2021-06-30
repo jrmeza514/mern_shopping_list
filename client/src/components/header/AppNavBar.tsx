@@ -8,6 +8,7 @@ import {
     List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer,
     AppBar, Toolbar, Typography, IconButton
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,7 +39,7 @@ const AppNavBar = ({ auth }: IAppNavbar) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        Shopping List
+                        <Link to="/">Shopping List</Link>
                     </Typography>
                     {auth?.isAuthenticated ? <AccountMenu /> : null}
 
