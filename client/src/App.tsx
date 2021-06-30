@@ -7,6 +7,7 @@ import { loadUser } from './actions/authActions';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from './theme/main';
 import AppContent from './components/AppContent';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 class App extends Component {
 
@@ -19,8 +20,10 @@ class App extends Component {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <div className="App">
-            <AppNavBar />
-            <AppContent />
+            <Router>
+              <AppNavBar />
+              <AppContent />
+            </Router>
           </div>
         </ThemeProvider>
       </Provider>

@@ -3,6 +3,11 @@ import { IAuthReduxProps } from '../types/interfaces';
 import ShoppingList from './shopping/ShoppingList';
 import AuthFormTabs from './auth/AuthFormTabs';
 
+import {
+    Switch,
+    Route
+} from "react-router-dom";
+
 interface AppContentProps {
     auth?: {
         isAuthenticated: boolean;
@@ -18,7 +23,16 @@ const AppContent = ({ auth }: AppContentProps) => {
                 (() => {
                     if (auth) {
                         if (auth.isAuthenticated && !auth.isLoading) {
-                            return <ShoppingList />
+                            return (
+                                <Switch>
+                                    <Route path="/settings">
+                                        Settings
+                                    </Route>
+                                    <Route path="/">
+                                        <ShoppingList />
+                                    </Route>
+                                </Switch>
+                            )
                         } else if (!auth.isLoading && !auth.isAuthenticated) {
                             return <AuthFormTabs />
                         }
