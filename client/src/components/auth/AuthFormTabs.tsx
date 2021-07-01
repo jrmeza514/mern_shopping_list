@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -11,11 +9,15 @@ import RegisterForm from './RegisterForm';
 import { Card } from '@material-ui/core';
 import { useHistory } from 'react-router';
 
-function TabPanel(props: { [x: string]: any; children: any; value: any; index: any; }) {
-  const { children, value, index, ...other } = props;
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: any;
+  value: any;
+}
 
+function TabPanel({ children, value, index }: TabPanelProps) {
+  // Reset Router to Root Directory
   const routerHistory = useHistory();
-
   useEffect(() => {
     routerHistory.push('/');
   }, [routerHistory]);
@@ -25,9 +27,7 @@ function TabPanel(props: { [x: string]: any; children: any; value: any; index: a
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+      aria-labelledby={`simple-tab-${index}`}>
       {value === index && (
         <Box p={3}>
           <Typography component="div">{children}</Typography>
@@ -37,42 +37,20 @@ function TabPanel(props: { [x: string]: any; children: any; value: any; index: a
   );
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    margin: 'auto',
-  },
-}));
-
-export default function SimpleTabs() {
-  const classes = useStyles();
+export default function AuthFormTabs() {
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: any, newValue: React.SetStateAction<number>) => {
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
 
   return (
-    <div className={`${classes.root} tabbed-auth-forms`}>
+    <div className={`tabbed-auth-forms`}>
       <Card>
         <AppBar position="static">
           <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-            <Tab label="Login" {...a11yProps(0)} />
-            <Tab label="Register" {...a11yProps(1)} />
+            <Tab label="Login" className="auth-tab-btn" />
+            <Tab label="Register" className="auth-tab-btn" />
           </Tabs>
         </AppBar>
         <div className="panels">
