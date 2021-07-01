@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,9 +9,16 @@ import Box from '@material-ui/core/Box';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import { Card } from '@material-ui/core';
+import { useHistory } from 'react-router';
 
 function TabPanel(props: { [x: string]: any; children: any; value: any; index: any; }) {
   const { children, value, index, ...other } = props;
+
+  const routerHistory = useHistory();
+
+  useEffect(() => {
+    routerHistory.push('/');
+  }, [routerHistory]);
 
   return (
     <div
