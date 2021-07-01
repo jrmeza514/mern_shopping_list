@@ -48,21 +48,23 @@ const AccountMenu = ({ auth, logout }: AccountMenuProps) => {
         onClose={handleClose}
         onClick={handleClose}
       >
-        <MenuItem disabled>
-          <ListItemIcon>
-            <AvatarIcon fontSize="small" />
-          </ListItemIcon>
-          My account
-        </MenuItem>
+        <Link to="/account">
+          <MenuItem>
+            <ListItemIcon>
+              <AvatarIcon fontSize="small" />
+            </ListItemIcon>
+            My account
+          </MenuItem>
+        </Link>
         <Divider />
-        <MenuItem >
-          <Link to="/settings">
+        <Link to="/settings">
+          <MenuItem >
             <ListItemIcon>
               <Settings fontSize="small" />
             </ListItemIcon>
             Settings
-          </Link>
-        </MenuItem>
+          </MenuItem>
+        </Link>
         <MenuItem onClick={logout}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" />

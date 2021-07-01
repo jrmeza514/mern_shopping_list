@@ -15,7 +15,12 @@ a, a:visited {
 .tabbed-auth-forms{
   width: 400px;
   max-width: 90vw;
-  margin-top: 100px;
+  margin: auto;
+  margin-top: 20px;
+  
+  .auth-tab-btn{
+    flex: 1;
+  }
 
   .auth-form {
     display: flex;

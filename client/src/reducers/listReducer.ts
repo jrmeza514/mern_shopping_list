@@ -1,4 +1,4 @@
-import { GET_LIST, ADD_LIST, DELETE_LIST, LIST_LOADING, ADD_ITEM, DELETE_ITEM } from '../actions/types'
+import { GET_LIST, ADD_LIST, DELETE_LIST, LIST_LOADING, ADD_ITEM, DELETE_ITEM, CLEAR_SHOPPING_LIST } from '../actions/types'
 import { IAction, IExistingItem, IExistingList } from '../types/interfaces';
 
 const initialState = {
@@ -10,8 +10,8 @@ interface IState {
     lists: IExistingList[]
 }
 
-export default function checkItemEvents( state:IState = initialState, action:IAction ){
-    switch(action.type){
+export default function checkItemEvents(state: IState = initialState, action: IAction) {
+    switch (action.type) {
         case GET_LIST:
             return {
                 ...state,
@@ -20,14 +20,14 @@ export default function checkItemEvents( state:IState = initialState, action:IAc
             }
         case DELETE_LIST:
             return {
-                ...state, 
+                ...state,
                 lists: state.lists.filter(list => list._id !== action.payload)
             }
         case ADD_LIST:
-            const{_id, title } = action.payload;
-            return{
-                ...state, 
-                lists: [...state.lists, {_id, title, items: []}]
+            const { _id, title } = action.payload;
+            return {
+                ...state,
+                lists: [...state.lists, { _id, title, items: [] }]
             }
         case LIST_LOADING:
             return {
@@ -37,9 +37,9 @@ export default function checkItemEvents( state:IState = initialState, action:IAc
         case ADD_ITEM:
             return {
                 ...state,
-                lists: state.lists.map( (list: IExistingList) => {
-                    if(`${list._id}` !== action.payload.listId) return list;
-                    
+                lists: state.lists.map((list: IExistingList) => {
+                    if (`${list._id}` !== action.payload.listId) return list;
+
                     return {
                         ...list,
                         items: [
@@ -51,22 +51,27 @@ export default function checkItemEvents( state:IState = initialState, action:IAc
             }
 
         case DELETE_ITEM:
-            
+
             return {
                 ...state,
-                lists: state.lists.map( (list: IExistingList) => {
-                    if(`${list._id}` !== action.payload.listId) return list;
-                    
+                lists: state.lists.map((list: IExistingList) => {
+                    if (`${list._id}` !== action.payload.listId) return list;
+
                     return {
                         ...list,
-                        items: list.items.filter( (item: IExistingItem) => {
+                        items: list.items.filter((item: IExistingItem) => {
                             return `${item._id}` !== action.payload.itemId
                         })
                     }
                 })
             }
 
-           
+        case CLEAR_SHOPPING_LIST:
+            return {
+                ...state,
+                lists: []
+            }
+
         default:
             return state
     }

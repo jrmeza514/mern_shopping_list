@@ -16,3 +16,4 @@ export const GET_LIST = "GET_LIST";
 export const ADD_LIST = "ADD_LIST";
 export const DELETE_LIST = "DELETE_LIST";
 export const LIST_LOADING = "LIST_LOADING";
+export const CLEAR_SHOPPING_LIST = "CLEAR_SHOPPING_LIST";
