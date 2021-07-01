@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import { IAuthReduxProps } from '../types/interfaces';
 import ShoppingList from './shopping/ShoppingList';
 import AuthFormTabs from './auth/AuthFormTabs';
+import SettingsPage from './pages/SettingsPage';
+import AccountPage from './pages/AccountPage';
 
 import {
     Switch,
@@ -26,7 +28,10 @@ const AppContent = ({ auth }: AppContentProps) => {
                             return (
                                 <Switch>
                                     <Route path="/settings">
-                                        Settings
+                                        <SettingsPage />
+                                    </Route>
+                                    <Route path="/account">
+                                        <AccountPage />
                                     </Route>
                                     <Route path="/">
                                         <ShoppingList />
