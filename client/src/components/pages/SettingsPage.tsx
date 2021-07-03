@@ -19,9 +19,10 @@ export default function SettingsPage() {
             <ToggleButtonGroup
                 value={themeAlignment}
                 exclusive
-                onChange={onThemeChange}>
-                <ToggleButton value={THEME.LIGHT}>Light</ToggleButton>
-                <ToggleButton value={THEME.DARK}>Dark</ToggleButton>
+                onChange={onThemeChange}
+                style={{ backgroundColor: 'white' }}>
+                <ToggleButton value={THEME.LIGHT} style={{ color: 'black', fontWeight: 700 }}>Light</ToggleButton>
+                <ToggleButton value={THEME.DARK} style={{ color: 'black', fontWeight: 700 }}>Dark</ToggleButton>
             </ToggleButtonGroup>
         </div>
     )
