@@ -42,11 +42,12 @@ export interface IError {
 
 export type UserPrefTheme = "THEME_LIGHT" | "THEME_DARK";
 
+export interface IUserPrefs {
+  theme: UserPrefTheme
+}
 export interface IUserState {
   name: string,
-  userPrefs: {
-    theme: UserPrefTheme
-  }
+  userPrefs: IUserPrefs
 }
 
 export interface IAuthReduxProps {
