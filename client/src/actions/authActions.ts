@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
-import { IAuthFunction } from '../types/interfaces';
+import { IAuthFunction, IUserPrefs } from '../types/interfaces';
 import { getItems } from './ItemActions';
 import { getLists } from './listActions';
 
@@ -65,9 +65,10 @@ export const register = ({ name, email, password }: any) => (dispatch: Function)
 }
 
 export const loadUser = () => (dispatch: Function, getState: Function) => {
+    if (!getState().auth.token)
+        return dispatch({ type: AUTH_ERROR });
+
     dispatch({ type: USER_LOADING });
-
-
     axios.get('/api/auth/user', tokenConfig(getState))
         .then(res => dispatch({
             type: USER_LOADED,
@@ -94,6 +95,10 @@ export const tokenConfig = (getState: Function) => {
     return config;
 }
 
-export const saveUserPrefs = () => {
-
+export const saveUserPrefs = (userPrefs: IUserPrefs) => (dispatch: Function) => {
+    const config = {
+        headers: { "Content-type": "application/json" }
+    };
+    const body = userPrefs;
+    axios.post('/api/users/prefs', body, config);
 }
