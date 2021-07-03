@@ -10,7 +10,7 @@ import {
     DARK_MODE_DISABLED,
     DARK_MODE_ENABLED
 } from '../actions/types';
-import { IUser, IUserState } from '../types/interfaces';
+import { IUserState } from '../types/interfaces';
 
 interface AuthSate {
     token: string | null,
