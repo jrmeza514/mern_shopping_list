@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
-import { setDarkMode } from '../../actions/themeActions'
+import { setDarkMode } from '../../actions/themeActions';
+import { saveUserPrefs } from '../../actions/authActions';
 import { connect } from 'react-redux';
-import { IAuthReduxProps, UserPrefTheme } from '../../types/interfaces';
+import { IAuthReduxProps, IUserPrefs, UserPrefTheme } from '../../types/interfaces';
 
 interface SettingsPageProps {
     userPrefs: {
         theme: UserPrefTheme
     },
     setDarkMode(val: boolean): void
+    saveUserPrefs(userPrefs: IUserPrefs): void
 }
 
-const SettingsPage = ({ userPrefs, setDarkMode }: SettingsPageProps) => {
+const SettingsPage = ({ userPrefs, setDarkMode, saveUserPrefs }: SettingsPageProps) => {
 
     const THEME = {
         LIGHT: "THEME_LIGHT",
@@ -31,7 +33,7 @@ const SettingsPage = ({ userPrefs, setDarkMode }: SettingsPageProps) => {
             default:
                 break;
         }
-
+        saveUserPrefs(userPrefs);
     }
 
     return (
@@ -53,4 +55,4 @@ const mapStateToProps = (state: IAuthReduxProps) => ({
     userPrefs: state.auth.user.userPrefs
 });
 
-export default connect(mapStateToProps, { setDarkMode })(SettingsPage);
+export default connect(mapStateToProps, { setDarkMode, saveUserPrefs })(SettingsPage);
