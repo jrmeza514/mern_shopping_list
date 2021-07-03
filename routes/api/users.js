@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-
+const auth = require('./auth');
 const User = require('../../models/User');
 
 /**
@@ -38,6 +38,11 @@ router.post('/', (req, res) => {
             });
         });
     });
+});
+
+router.post('/prefs', auth, (req, res) => {
+    console.log(req.body);
+    res.json({ success: true });
 });
 
 module.exports = router;
