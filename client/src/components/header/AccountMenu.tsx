@@ -11,7 +11,6 @@ import LogoutIcon from '@material-ui/icons/ExitToApp';
 import { logout } from '../../actions/authActions';
 import { connect } from 'react-redux';
 import { IAuthReduxProps } from '../../types/interfaces';
-import theme from '../../theme/main';
 import { Link } from 'react-router-dom';
 
 interface AccountMenuProps {
@@ -36,8 +35,8 @@ const AccountMenu = ({ auth, logout }: AccountMenuProps) => {
   return (
     <>
       <Box>
-        <IconButton onClick={handleClick} size="small" style={{ backgroundColor: theme.palette.secondary.main }}>
-          <Avatar style={{ backgroundColor: theme.palette.secondary.main }}>
+        <IconButton onClick={handleClick} size="small">
+          <Avatar>
             {auth.user.name[0]}
           </Avatar>
         </IconButton>

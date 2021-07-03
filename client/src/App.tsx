@@ -1,34 +1,21 @@
 import './App.scss';
-import { Component } from 'react';
-import AppNavBar from './components/header/AppNavBar';
+import { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import store from './store';
 import { loadUser } from './actions/authActions';
-import { ThemeProvider } from '@material-ui/styles';
-import theme from './theme/main';
-import AppContent from './components/AppContent';
-import { BrowserRouter as Router } from 'react-router-dom';
+import AppContext from './components/AppContext';
+import store from './store';
 
-class App extends Component {
+const App = () => {
 
-  componentDidMount() {
+  useEffect(() => {
     store.dispatch(loadUser());
-  }
+  })
 
-  render() {
-    return (
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <div className="App">
-            <Router>
-              <AppNavBar />
-              <AppContent />
-            </Router>
-          </div>
-        </ThemeProvider>
-      </Provider>
-    )
-  }
+  return (
+    <Provider store={store}>
+      <AppContext />
+    </Provider>
+  )
 }
 
 export default App;

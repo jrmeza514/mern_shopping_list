@@ -93,3 +93,7 @@ export const tokenConfig = (getState: Function) => {
     }
     return config;
 }
+
+export const saveUserPrefs = () => {
+
+}

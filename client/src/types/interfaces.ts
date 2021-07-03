@@ -39,13 +39,16 @@ export interface IError {
   id: E_Error;
   msg: string;
 }
-
+export interface IUserState {
+  name: string,
+  userPrefs: {
+    theme: string
+  }
+}
 export interface IAuthReduxProps {
   auth: {
     isAuthenticated: boolean;
-    user: {
-      name: string
-    }
+    user: IUserState
   };
   error: IError;
 }
