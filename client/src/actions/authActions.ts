@@ -95,10 +95,7 @@ export const tokenConfig = (getState: Function) => {
     return config;
 }
 
-export const saveUserPrefs = (userPrefs: IUserPrefs) => (dispatch: Function) => {
-    const config = {
-        headers: { "Content-type": "application/json" }
-    };
+export const saveUserPrefs = (userPrefs: IUserPrefs) => (dispatch: Function, getState: Function) => {
     const body = userPrefs;
-    axios.post('/api/users/prefs', body, config);
+    axios.post('/api/users/prefs', body, tokenConfig(getState));
 }

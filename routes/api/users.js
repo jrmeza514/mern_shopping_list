@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const auth = require('./auth');
+const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 
 /**
@@ -41,8 +41,10 @@ router.post('/', (req, res) => {
 });
 
 router.post('/prefs', auth, (req, res) => {
-    console.log(req.body);
-    res.json({ success: true });
+    User.findByIdAndUpdate(req.user.id, { userPrefs: req.body }, { useFindAndModify: false }, (error) => {
+        if (error) return res.json({ succes: false });
+        return res.json({ succes: true });
+    });
 });
 
 module.exports = router;
