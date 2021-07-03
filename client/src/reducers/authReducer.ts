@@ -65,12 +65,28 @@ export default function checkAuthEvents(state = initialState, action: any) {
             }
         case DARK_MODE_ENABLED:
             if (!state || !state.user) return state;
-            state.user.userPrefs.theme = "THEME_DARK";
-            return state;
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userPrefs: {
+                        ...state.user.userPrefs,
+                        theme: "THEME_DARK"
+                    }
+                }
+            }
         case DARK_MODE_DISABLED:
             if (!state || !state.user) return state;
-            state.user.userPrefs.theme = "THEME_LIGHT";
-            return state;
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userPrefs: {
+                        ...state.user.userPrefs,
+                        theme: "THEME_LIGHT"
+                    }
+                }
+            }
         default:
             return state;
     }
