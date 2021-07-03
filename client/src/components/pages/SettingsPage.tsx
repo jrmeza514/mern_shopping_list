@@ -33,7 +33,7 @@ const SettingsPage = ({ userPrefs, setDarkMode, saveUserPrefs }: SettingsPagePro
             default:
                 break;
         }
-        saveUserPrefs(userPrefs);
+        saveUserPrefs({ ...userPrefs, theme: newAlignemnt });
     }
 
     return (
