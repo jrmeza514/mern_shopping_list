@@ -4,15 +4,24 @@ import { ThemeProvider } from '@material-ui/styles';
 import { light, dark } from '../theme/main';
 import AppContent from './AppContent';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { IAuthReduxProps, UserPrefTheme } from '../types/interfaces';
 
 interface AppContextProps {
-  darkMode: boolean
+  themePref: UserPrefTheme
 }
 
-const AppContext = ({ darkMode }: AppContextProps) => {
+const getTheme = (pref: UserPrefTheme) => {
+  if (pref === "THEME_DARK") return dark;
+  if (pref === "THEME_LIGHT") return light;
+  if (localStorage.getItem("theme") === "THEME_DARK") return dark;
+  if (localStorage.getItem("theme") === "THEME_LIGHT") return light;
+  return light;
+}
+
+const AppContext = ({ themePref }: AppContextProps) => {
 
   return (
-    <ThemeProvider theme={darkMode ? dark : light}>
+    <ThemeProvider theme={getTheme(themePref)}>
       <div className="App">
         <Router>
           <AppNavBar />
@@ -23,13 +32,9 @@ const AppContext = ({ darkMode }: AppContextProps) => {
   )
 
 }
-interface ThemeState {
-  theme: {
-    darkMode: boolean
-  }
-}
-const mapStateToProps = (state: ThemeState) => ({
-  darkMode: state.theme.darkMode
+
+const mapStateToProps = (state: IAuthReduxProps) => ({
+  themePref: state.auth.user?.userPrefs.theme
 })
 
 export default connect(mapStateToProps, {})(AppContext);
