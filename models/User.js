@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Theme = {
+    light: 'THEME_LIGHT',
+    dark: 'THEME_DARK'
+}
 
 const UserSchema = new Schema({
     name: {
@@ -21,7 +25,10 @@ const UserSchema = new Schema({
     },
     lists: [
         { type: Schema.Types.ObjectId, ref: 'list', require: true }
-    ]
+    ],
+    userPrefs: {
+        theme: { type: String, default: Theme.light }
+    }
 });
 
 module.exports = User = mongoose.model('user', UserSchema);
