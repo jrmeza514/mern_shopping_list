@@ -39,12 +39,16 @@ export interface IError {
   id: E_Error;
   msg: string;
 }
+
+export type UserPrefTheme = "THEME_LIGHT" | "THEME_DARK";
+
 export interface IUserState {
   name: string,
   userPrefs: {
-    theme: string
+    theme: UserPrefTheme
   }
 }
+
 export interface IAuthReduxProps {
   auth: {
     isAuthenticated: boolean;

@@ -2,22 +2,24 @@ import React, { useState } from 'react';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
 import { setDarkMode } from '../../actions/themeActions'
 import { connect } from 'react-redux';
-import { IAuthReduxProps } from '../../types/interfaces';
+import { IAuthReduxProps, UserPrefTheme } from '../../types/interfaces';
 
 interface SettingsPageProps {
-    theme: string,
+    userPrefs: {
+        theme: UserPrefTheme
+    },
     setDarkMode(val: boolean): void
 }
 
-const SettingsPage = ({ theme, setDarkMode }: SettingsPageProps) => {
+const SettingsPage = ({ userPrefs, setDarkMode }: SettingsPageProps) => {
 
     const THEME = {
         LIGHT: "THEME_LIGHT",
         DARK: "THEME_DARK"
     };
 
-    const [themeAlignment, setThemeAlignment] = useState<String | null>(theme);
-    const onThemeChange = (event: React.MouseEvent<HTMLElement>, newAlignemnt: string | null) => {
+    const [themeAlignment, setThemeAlignment] = useState<UserPrefTheme>(userPrefs.theme);
+    const onThemeChange = (event: React.MouseEvent<HTMLElement>, newAlignemnt: UserPrefTheme) => {
         if (newAlignemnt) setThemeAlignment(newAlignemnt);
         switch (newAlignemnt) {
             case THEME.DARK:
@@ -48,7 +50,7 @@ const SettingsPage = ({ theme, setDarkMode }: SettingsPageProps) => {
 
 
 const mapStateToProps = (state: IAuthReduxProps) => ({
-    theme: state.auth.user.userPrefs.theme
+    userPrefs: state.auth.user.userPrefs
 });
 
 export default connect(mapStateToProps, { setDarkMode })(SettingsPage);
