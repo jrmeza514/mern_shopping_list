@@ -40,12 +40,20 @@ export interface IError {
   msg: string;
 }
 
+export type UserPrefTheme = "THEME_LIGHT" | "THEME_DARK";
+
+export interface IUserPrefs {
+  theme: UserPrefTheme
+}
+export interface IUserState {
+  name: string,
+  userPrefs: IUserPrefs
+}
+
 export interface IAuthReduxProps {
   auth: {
     isAuthenticated: boolean;
-    user: {
-      name: string
-    }
+    user: IUserState
   };
   error: IError;
 }

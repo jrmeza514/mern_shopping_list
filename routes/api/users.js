@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-
+const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 
 /**
@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
 
     User.findOne({ email }).then(user => {
         if (user) return res.status(400).json({ msg: "Email already in use" });
-        const newUser = new User({ name, email, password });
+        const newUser = new User({ name, email, password, userPrefs });
 
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -31,12 +31,19 @@ router.post('/', (req, res) => {
                         const tokenCallback = (err, token) => {
                             if (err) throw err;
 
-                            res.json({ token, user: { id, name, email } });
+                            res.json({ token, user: { id, name, email, userPrefs } });
                         };
                         jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: 3600 }, tokenCallback);
                     });
             });
         });
+    });
+});
+
+router.post('/prefs', auth, (req, res) => {
+    User.findByIdAndUpdate(req.user.id, { userPrefs: req.body }, { useFindAndModify: false }, (error) => {
+        if (error) return res.json({ succes: false });
+        return res.json({ succes: true });
     });
 });
 

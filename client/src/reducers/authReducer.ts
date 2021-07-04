@@ -6,10 +6,20 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     REGISTER_FAIL,
-    REGISTER_SUCCESS
+    REGISTER_SUCCESS,
+    DARK_MODE_DISABLED,
+    DARK_MODE_ENABLED
 } from '../actions/types';
+import { IUserState } from '../types/interfaces';
 
-const initialState = {
+interface AuthSate {
+    token: string | null,
+    isAuthenticated: boolean,
+    isLoading: boolean,
+    user: IUserState | null
+}
+
+const initialState: AuthSate = {
     token: localStorage.getItem('token'),
     isAuthenticated: false,
     isLoading: true,
@@ -53,7 +63,30 @@ export default function checkAuthEvents(state = initialState, action: any) {
                 isAuthenticated: false,
                 isLoading: false
             }
-
+        case DARK_MODE_ENABLED:
+            if (!state || !state.user) return state;
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userPrefs: {
+                        ...state.user.userPrefs,
+                        theme: "THEME_DARK"
+                    }
+                }
+            }
+        case DARK_MODE_DISABLED:
+            if (!state || !state.user) return state;
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userPrefs: {
+                        ...state.user.userPrefs,
+                        theme: "THEME_LIGHT"
+                    }
+                }
+            }
         default:
             return state;
     }

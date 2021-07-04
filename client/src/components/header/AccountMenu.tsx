@@ -10,16 +10,14 @@ import { Settings, AccountCircle as AvatarIcon } from '@material-ui/icons';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 import { logout } from '../../actions/authActions';
 import { connect } from 'react-redux';
-import { IAuthReduxProps } from '../../types/interfaces';
-import theme from '../../theme/main';
+import { IAuthReduxProps, IUserState } from '../../types/interfaces';
 import { Link } from 'react-router-dom';
+import { light, dark } from '../../theme/main';
 
 interface AccountMenuProps {
   logout(): void;
   auth: {
-    user: {
-      name: string
-    }
+    user: IUserState
   }
 }
 
@@ -27,17 +25,17 @@ const AccountMenu = ({ auth, logout }: AccountMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [accoutnMenuOpen, setAccountMenuOpen] = useState(false);
   const handleClose = () => setAccountMenuOpen(false);
-
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setAccountMenuOpen(!accoutnMenuOpen);
   };
+  const theme = auth.user.userPrefs.theme === "THEME_DARK" ? dark : light;
 
   return (
     <>
       <Box>
         <IconButton onClick={handleClick} size="small" style={{ backgroundColor: theme.palette.secondary.main }}>
-          <Avatar style={{ backgroundColor: theme.palette.secondary.main }}>
+          <Avatar style={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.secondary.contrastText }}>
             {auth.user.name[0]}
           </Avatar>
         </IconButton>
@@ -51,7 +49,7 @@ const AccountMenu = ({ auth, logout }: AccountMenuProps) => {
         <Link to="/account">
           <MenuItem>
             <ListItemIcon>
-              <AvatarIcon fontSize="small" />
+              <AvatarIcon fontSize="small" color="secondary" />
             </ListItemIcon>
             My account
           </MenuItem>
@@ -60,14 +58,14 @@ const AccountMenu = ({ auth, logout }: AccountMenuProps) => {
         <Link to="/settings">
           <MenuItem >
             <ListItemIcon>
-              <Settings fontSize="small" />
+              <Settings fontSize="small" color="secondary" />
             </ListItemIcon>
             Settings
           </MenuItem>
         </Link>
         <MenuItem onClick={logout}>
           <ListItemIcon>
-            <LogoutIcon fontSize="small" />
+            <LogoutIcon fontSize="small" color="secondary" />
           </ListItemIcon>
           Logout
         </MenuItem>
