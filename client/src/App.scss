@@ -61,7 +61,6 @@ a, a:visited {
   }
 
   @for $numcols from 1 through 20 {
-    // (SPACE_BETWEEN_ITEMTS * (numberOfColums - 1)) / numberOfColums
     $spacebetween: 10px;
     $width: calc(((100vw - 40px) / #{$numcols}) - ((#{$spacebetween} * (#{$numcols} - 1))/#{$numcols}));
     
