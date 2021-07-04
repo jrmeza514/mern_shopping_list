@@ -56,24 +56,18 @@ const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteItem }: I
         const VIEWPORT_WIDTH = window.innerWidth - PADDING * 2;
         const ACTUAL_WIDRH = TARGET_WIDTH >= VIEWPORT_WIDTH ? VIEWPORT_WIDTH : TARGET_WIDTH;
         const numberOfColums = Math.floor((VIEWPORT_WIDTH) / ACTUAL_WIDRH);
-        console.log(numberOfColums);
 
         const COLUMN_WIDTH = numberOfColums === 1 ? VIEWPORT_WIDTH :
             (VIEWPORT_WIDTH / numberOfColums) -
             // Sum of all whitespace divided by number of columns
-            (
-                // White Space Between Cards
-                ((SPACE_BETWEEN_ITEMTS) * (numberOfColums - 1))
-            ) / numberOfColums
+            (SPACE_BETWEEN_ITEMTS * (numberOfColums - 1)) / numberOfColums
 
-        setCardWidth(
-            Math.floor(COLUMN_WIDTH)
-        );
+        setCardWidth(Math.floor(COLUMN_WIDTH));
     }
 
     useLayoutEffect(() => {
-        window.addEventListener('resize', runSizingCalculations);
         runSizingCalculations();
+        window.addEventListener('resize', runSizingCalculations);
         return () => window.removeEventListener('resize', runSizingCalculations);
     });
 
