@@ -125,7 +125,6 @@ export interface IShoppingList {
     lists: IExistingList[];
   };
   getLists(): void;
-  deleteList(id: string): void;
   deleteItem(id: string, listId: string): void;
   isAuthenticated: boolean;
 }
