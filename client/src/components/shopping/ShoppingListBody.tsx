@@ -1,7 +1,7 @@
 import { IExistingItem } from '../../types/interfaces';
 import { IconButton, List, ListItem } from '@material-ui/core';
 import { Delete as DeleteIcon } from '@material-ui/icons';
-import Web from '@material-ui/icons/AddShoppingCart';
+import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 interface ShoppingListBodyProps {
     items: IExistingItem[],
@@ -17,9 +17,8 @@ const ShoppingListBody = ({ items, listId, deleteItem }: ShoppingListBodyProps) 
             {items.map((item: IExistingItem) => (
                 <ListItem key={item._id} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div className="left">
-
                         <IconButton color="secondary" target="_blank" href={`https://www.amazon.com/s?k=${item.name.split(" ").join("+")}`}>
-                            <Web fontSize="small" />
+                            <ShoppingCartIcon fontSize="small" color="secondary" />
                         </IconButton>
                         {item.name}
                     </div>

@@ -33,7 +33,7 @@ export default function ShoppingListContextMenu({ deleteList }: ShoppingListCont
                 aria-controls="long-menu"
                 aria-haspopup="true"
                 onClick={handleClick}
-                color="primary"
+                color="secondary"
             >
                 <MoreVertIcon />
             </IconButton>
@@ -46,7 +46,7 @@ export default function ShoppingListContextMenu({ deleteList }: ShoppingListCont
 
                 <MenuItem onClick={deleteParentList}>
                     <ListItemIcon className="context-menu-icon">
-                        <DeleteIcon fontSize="small" color="primary" />
+                        <DeleteIcon fontSize="small" color="secondary" />
                     </ListItemIcon>
                     Delete List
                 </MenuItem>
