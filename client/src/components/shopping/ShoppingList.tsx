@@ -96,10 +96,7 @@ const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteList, del
                             return (
                                 <Card key={_id} className="card" style={{
                                     width: cardWidth,
-                                    transform: `
-                            translateX(${transXVal}px)
-                            translateY(${transYVal}px)
-                            `
+                                    transform: `translateX(${transXVal}px) translateY(${transYVal}px)`
                                 }}>
                                     <ShoppingListHeader title={title} _id={_id} addToList={addToList}></ShoppingListHeader>
                                     <ShoppingListBody items={items} deleteItem={deleteItem} listId={_id} />
