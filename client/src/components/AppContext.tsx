@@ -5,6 +5,7 @@ import { light, dark } from '../theme/main';
 import AppContent from './AppContent';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { IAuthReduxProps, UserPrefTheme } from '../types/interfaces';
+import { CssBaseline } from '@material-ui/core';
 
 interface AppContextProps {
   themePref: UserPrefTheme
@@ -22,6 +23,7 @@ const AppContext = ({ themePref }: AppContextProps) => {
 
   return (
     <ThemeProvider theme={getTheme(themePref)}>
+      <CssBaseline />
       <div className="App">
         <Router>
           <AppNavBar />
