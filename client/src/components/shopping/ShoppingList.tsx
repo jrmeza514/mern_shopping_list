@@ -10,7 +10,6 @@ import ShoppingListHeader from './ShoppingListHeader';
 import ShoppingListBody from './ShoppingListBody';
 
 const PADDING = 20;
-const SPACE_BETWEEN_ITEMTS = 10;
 const ITEM_HEIGTH_MULTIPLIER = 60;
 const STATIC_HEIGHT_MODIFIER = 75;
 
@@ -38,6 +37,7 @@ const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteItem }: I
     const [listId, setListId] = useState<string | null>(null);
     const [listTitle, setlistTitle] = useState<string | null>(null);
     const [itemModalOpen, setItemModalOpen] = useState(false);
+
     const toggle = () => {
         setItemModalOpen(!itemModalOpen);
     };
@@ -49,40 +49,23 @@ const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteItem }: I
     }
 
     let TARGET_WIDTH = 350;
-    const [cardWidth, setCardWidth] = useState(TARGET_WIDTH);
-
+    const [numCols, setNumCols] = useState(-1);
 
     const runSizingCalculations = () => {
         const VIEWPORT_WIDTH = window.innerWidth - PADDING * 2;
         const ACTUAL_WIDRH = TARGET_WIDTH >= VIEWPORT_WIDTH ? VIEWPORT_WIDTH : TARGET_WIDTH;
         const numberOfColums = Math.floor((VIEWPORT_WIDTH) / ACTUAL_WIDRH);
-        console.log(numberOfColums);
-
-        const COLUMN_WIDTH = numberOfColums === 1 ? VIEWPORT_WIDTH :
-            (VIEWPORT_WIDTH / numberOfColums) -
-            // Sum of all whitespace divided by number of columns
-            (
-                // White Space Between Cards
-                ((SPACE_BETWEEN_ITEMTS) * (numberOfColums - 1))
-            ) / numberOfColums
-
-        setCardWidth(
-            Math.floor(COLUMN_WIDTH)
-        );
+        if (numCols === numberOfColums) return;
+        setNumCols(numberOfColums);
     }
 
     useLayoutEffect(() => {
-        window.addEventListener('resize', runSizingCalculations);
         runSizingCalculations();
+        window.addEventListener('resize', runSizingCalculations);
         return () => window.removeEventListener('resize', runSizingCalculations);
     });
 
     if (!isAuthenticated) return null;
-
-
-
-
-
 
     return (
         <>
@@ -96,18 +79,16 @@ const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteItem }: I
                         return lists.sort((a: IExistingList, b: IExistingList) => { return b.items.length - a.items.length })
                             .map(({ _id, title, items }) => {
                                 const colIndex = getIndexOfSmallestColumn(columns);
-                                let transYVal = columns[colIndex];
-                                let transXVal = (colIndex * cardWidth) + SPACE_BETWEEN_ITEMTS * colIndex;
+                                const transYVal = columns[colIndex];
                                 columns[colIndex] += items.length * ITEM_HEIGTH_MULTIPLIER + STATIC_HEIGHT_MODIFIER;
 
                                 return (
-                                    <Card key={_id} className="card" style={{
-                                        width: cardWidth,
-                                        transform: `translateX(${transXVal}px) translateY(${transYVal}px)`
-                                    }}>
-                                        <ShoppingListHeader title={title} _id={_id} addToList={addToList}></ShoppingListHeader>
-                                        <ShoppingListBody items={items} deleteItem={deleteItem} listId={_id} />
-                                    </Card>
+                                    <div key={_id} className="colwrapper" style={{ transform: `translateY(${transYVal}px)` }}>
+                                        <Card className={`card sl-col-${colIndex} sl-grid-${columns.length}`}  >
+                                            <ShoppingListHeader title={title} _id={_id} addToList={addToList}></ShoppingListHeader>
+                                            <ShoppingListBody items={items} deleteItem={deleteItem} listId={_id} />
+                                        </Card>
+                                    </div>
                                 )
                             })
                     })()
