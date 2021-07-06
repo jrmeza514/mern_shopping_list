@@ -12,10 +12,10 @@ import ShoppingListBody from './ShoppingListBody';
 const PADDING = 20;
 const ITEM_HEIGTH_MULTIPLIER = 60;
 const STATIC_HEIGHT_MODIFIER = 75;
+const TARGET_WIDTH = 350;
 
 const getIndexOfSmallestColumn = (cols: number[]): number => {
-    if (cols.length === 0) return 0;
-    if (cols.length === 1) return 0;
+    if (cols.length < 2) return 0
     let indexOfSmallets = 0;
     let smallest = 10000;
     for (let i = 0; i < cols.length; i++) {
@@ -27,20 +27,25 @@ const getIndexOfSmallestColumn = (cols: number[]): number => {
     return indexOfSmallets;
 }
 
+const calculateNumberOfColumns = (): number => {
+    const VIEWPORT_WIDTH = window.innerWidth - PADDING * 2;
+    const ACTUAL_WIDRH = TARGET_WIDTH >= VIEWPORT_WIDTH ? VIEWPORT_WIDTH : TARGET_WIDTH;
+    const numberOfColums = Math.floor((VIEWPORT_WIDTH) / ACTUAL_WIDRH);
+    return numberOfColums;
+}
+
+const sortShoppingListByNumberOfItems = (a: IExistingList, b: IExistingList) => {
+    return b.items.length - a.items.length
+}
+
 const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteItem }: IShoppingList) => {
     const { lists } = shoppingList;
-
-    useEffect(() => {
-        if (isAuthenticated) getLists();
-    }, [getLists, isAuthenticated])
-
     const [listId, setListId] = useState<string | null>(null);
     const [listTitle, setlistTitle] = useState<string | null>(null);
     const [itemModalOpen, setItemModalOpen] = useState(false);
+    const [numCols, setNumCols] = useState(calculateNumberOfColumns());
 
-    const toggle = () => {
-        setItemModalOpen(!itemModalOpen);
-    };
+    const toggle = () => setItemModalOpen(!itemModalOpen);
 
     const addToList = (title: string, _id: string) => {
         setListId(_id);
@@ -48,15 +53,10 @@ const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteItem }: I
         setItemModalOpen(true);
     }
 
-    let TARGET_WIDTH = 350;
-    const [numCols, setNumCols] = useState(-1);
-
     const runSizingCalculations = () => {
-        const VIEWPORT_WIDTH = window.innerWidth - PADDING * 2;
-        const ACTUAL_WIDRH = TARGET_WIDTH >= VIEWPORT_WIDTH ? VIEWPORT_WIDTH : TARGET_WIDTH;
-        const numberOfColums = Math.floor((VIEWPORT_WIDTH) / ACTUAL_WIDRH);
-        if (numCols === numberOfColums) return;
-        setNumCols(numberOfColums);
+        const updatedNumCols = calculateNumberOfColumns();
+        if (numCols === updatedNumCols) return;
+        setNumCols(updatedNumCols);
     }
 
     useLayoutEffect(() => {
@@ -64,6 +64,10 @@ const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteItem }: I
         window.addEventListener('resize', runSizingCalculations);
         return () => window.removeEventListener('resize', runSizingCalculations);
     });
+
+    useEffect(() => {
+        if (isAuthenticated) getLists();
+    }, [getLists, isAuthenticated]);
 
     if (!isAuthenticated) return null;
 
@@ -74,23 +78,20 @@ const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteItem }: I
             <div className="sl-card-container">
                 {
                     (() => {
-                        const VW_WIDTH = (window.innerWidth - PADDING * 2);
-                        const columns = new Array(Math.floor(VW_WIDTH / TARGET_WIDTH)).fill(0);
-                        return lists.sort((a: IExistingList, b: IExistingList) => { return b.items.length - a.items.length })
-                            .map(({ _id, title, items }) => {
-                                const colIndex = getIndexOfSmallestColumn(columns);
-                                const transYVal = columns[colIndex];
-                                columns[colIndex] += items.length * ITEM_HEIGTH_MULTIPLIER + STATIC_HEIGHT_MODIFIER;
-
-                                return (
-                                    <div key={_id} className="colwrapper" style={{ transform: `translateY(${transYVal}px)` }}>
-                                        <Card className={`card sl-col-${colIndex} sl-grid-${columns.length}`}  >
-                                            <ShoppingListHeader title={title} _id={_id} addToList={addToList}></ShoppingListHeader>
-                                            <ShoppingListBody items={items} deleteItem={deleteItem} listId={_id} />
-                                        </Card>
-                                    </div>
-                                )
-                            })
+                        const columns = new Array(numCols).fill(0);
+                        return lists.sort(sortShoppingListByNumberOfItems).map(({ _id, title, items }) => {
+                            const colIndex = getIndexOfSmallestColumn(columns);
+                            const transYVal = columns[colIndex];
+                            columns[colIndex] += items.length * ITEM_HEIGTH_MULTIPLIER + STATIC_HEIGHT_MODIFIER;
+                            return (
+                                <div key={_id} className="sl-card-wrapper" style={{ transform: `translateY(${transYVal}px)` }}>
+                                    <Card className={`card sl-col-${colIndex} sl-grid-${columns.length}`}  >
+                                        <ShoppingListHeader title={title} _id={_id} addToList={addToList}></ShoppingListHeader>
+                                        <ShoppingListBody items={items} deleteItem={deleteItem} listId={_id} />
+                                    </Card>
+                                </div>
+                            )
+                        })
                     })()
                 }
             </div>
