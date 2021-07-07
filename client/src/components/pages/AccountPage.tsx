@@ -1,9 +1,21 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
+import { IAuthReduxProps } from '../../types/interfaces';
 
-export default function AccountPage() {
+interface AccountPageProps {
+
+}
+
+function AccountPage({ }: AccountPageProps) {
     return (
         <div>
-            Accounts Page
+
         </div>
     )
 }
+
+const mapStateToProps = (state: IAuthReduxProps) => {
+
+}
+
+export default connect(mapStateToProps, {})(AccountPage);
