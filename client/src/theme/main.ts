@@ -37,6 +37,10 @@ export const dark = createMuiTheme({
     text: {
       primary: "#fff",
       secondary: "#fff"
+    },
+    action: {
+      disabled: 'white',
+      disabledBackground: 'white'
     }
   },
   overrides: {

@@ -1,14 +1,21 @@
-import React, { ChangeEventHandler, FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import { IAuthReduxProps, ITarget, IUserState } from '../../types/interfaces';
-import { IconButton, Paper, Button, Input, Card, TextField } from '@material-ui/core';
+import { IconButton, Paper, Button, Input, Card, TextField, Theme, withStyles, WithStyles } from '@material-ui/core';
 import { Edit as EditIcon, Refresh as ClearIcon } from '@material-ui/icons';
+import { createStyles } from '@material-ui/core/styles';
 
-interface AccountPageProps {
+interface AccountPageProps extends WithStyles<typeof styles> {
     user: IUserState
 }
 
-function AccountPage({ user }: AccountPageProps) {
+const styles = ({ palette, spacing }: Theme) => createStyles({
+    disalbedInputField: {
+        color: 'red'
+    }
+});
+
+const AccountPage = withStyles(styles)(({ user, classes }: AccountPageProps) => {
 
     const [editDisabled, setEditDisabled] = useState(true);
     const [userName, setUserName] = useState(user.name);
@@ -33,7 +40,8 @@ function AccountPage({ user }: AccountPageProps) {
                 </IconButton>
                 <form>
                     <TextField id="name" name="name" label="Name" fullWidth margin="normal"
-                        value={userName} disabled={editDisabled} variant="outlined" onChange={onNameChange} />
+                        value={userName} disabled={editDisabled} variant="outlined" onChange={onNameChange}
+                    />
                     <TextField id="email" name="email" type="email" label="Email" fullWidth margin="normal"
                         value={userEmail} disabled={editDisabled} variant="outlined" onChange={onEmailChange} />
                     <Button color="secondary" disabled={editDisabled}>Update</Button>
@@ -41,7 +49,7 @@ function AccountPage({ user }: AccountPageProps) {
             </Card>
         </div>
     )
-}
+})
 
 const mapStateToProps = (state: IAuthReduxProps) => ({
     user: state.auth.user
