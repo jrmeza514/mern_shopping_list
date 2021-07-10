@@ -12,12 +12,20 @@ export const light = createMuiTheme({
       main: '#ef5350',
       dark: '#f27573',
       contrastText: '#fff',
+    },
+    text: {
+      disabled: '#696b6e',
+      hint: '#696b6e'
+    },
+    action: {
+      disabled: '#696b6e'
     }
   }
 });
 
 export const dark = createMuiTheme({
   palette: {
+    type: 'dark',
     primary: {
       light: '#1a2327',
       main: '#181818',
@@ -36,11 +44,12 @@ export const dark = createMuiTheme({
     },
     text: {
       primary: "#fff",
-      secondary: "#fff"
+      secondary: "#fff",
+      disabled: '#d3d6db',
+      hint: '#d3d6db'
     },
     action: {
-      disabled: 'white',
-      disabledBackground: 'white'
+      disabled: '#d3d6db'
     }
   },
   overrides: {

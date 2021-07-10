@@ -1,21 +1,31 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import { IAuthReduxProps, ITarget, IUserState } from '../../types/interfaces';
-import { IconButton, Paper, Button, Input, Card, TextField, Theme, withStyles, WithStyles } from '@material-ui/core';
+import { IconButton, Button, Card, TextField, Theme, withStyles, WithStyles } from '@material-ui/core';
 import { Edit as EditIcon, Refresh as ClearIcon } from '@material-ui/icons';
-import { createStyles } from '@material-ui/core/styles';
 
-interface AccountPageProps extends WithStyles<typeof styles> {
-    user: IUserState
-}
-
-const styles = ({ palette, spacing }: Theme) => createStyles({
-    disalbedInputField: {
-        color: 'red'
-    }
+const styles = ({ palette }: Theme) => ({
+    // textField: {
+    //     '& .MuiOutlinedInput-root.Mui-disabled': {
+    //         '& input': {
+    //             color: palette.type === 'dark' ? palette.secondary.main : 'black',
+    //         }
+    //     },
+    //     '& .MuiFormLabel-root.Mui-disabled': {
+    //         color: palette.type === 'dark' ? palette.secondary.main : 'black'
+    //     }
+    // },
+    // button: {
+    //     '&.Mui-disabled': {
+    //         color: palette.secondary.main
+    //     }
+    // }
 });
 
-const AccountPage = withStyles(styles)(({ user, classes }: AccountPageProps) => {
+interface AccountPageProps {
+    user: IUserState
+}
+const AccountPage = ({ user }: AccountPageProps) => {
 
     const [editDisabled, setEditDisabled] = useState(true);
     const [userName, setUserName] = useState(user.name);
@@ -40,16 +50,17 @@ const AccountPage = withStyles(styles)(({ user, classes }: AccountPageProps) => 
                 </IconButton>
                 <form>
                     <TextField id="name" name="name" label="Name" fullWidth margin="normal"
-                        value={userName} disabled={editDisabled} variant="outlined" onChange={onNameChange}
-                    />
+                        value={userName} disabled={editDisabled} variant="outlined" onChange={onNameChange} />
                     <TextField id="email" name="email" type="email" label="Email" fullWidth margin="normal"
                         value={userEmail} disabled={editDisabled} variant="outlined" onChange={onEmailChange} />
-                    <Button color="secondary" disabled={editDisabled}>Update</Button>
+                    <Button color="secondary" disabled={editDisabled}>
+                        Update
+                    </Button>
                 </form>
             </Card>
         </div>
     )
-})
+}
 
 const mapStateToProps = (state: IAuthReduxProps) => ({
     user: state.auth.user
