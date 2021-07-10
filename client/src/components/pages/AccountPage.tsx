@@ -1,17 +1,23 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { IAuthReduxProps, ITarget, IUserState } from '../../types/interfaces';
+import { IAuthReduxProps, ITarget, IUserPrefs, IUserState, UserPrefTheme } from '../../types/interfaces';
 import { IconButton, Button, Card, TextField } from '@material-ui/core';
 import { Edit as EditIcon, Refresh as ClearIcon } from '@material-ui/icons';
+import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
+import { setDarkMode } from '../../actions/themeActions';
+import { saveUserPrefs } from '../../actions/authActions';
 
 interface AccountPageProps {
-    user: IUserState
+    user: IUserState,
+    setDarkMode(val: boolean): void
+    saveUserPrefs(userPrefs: IUserPrefs): void
 }
-const AccountPage = ({ user }: AccountPageProps) => {
-
+const AccountPage = ({ user, setDarkMode, saveUserPrefs }: AccountPageProps) => {
+    const THEME = { LIGHT: "THEME_LIGHT", DARK: "THEME_DARK" };
     const [editDisabled, setEditDisabled] = useState(true);
     const [userName, setUserName] = useState(user.name);
     const [userEmail, setUserEmail] = useState(user.email);
+    const [themeAlignment, setThemeAlignment] = useState<UserPrefTheme>(user.userPrefs.theme);
 
     const onNameChange = (e: ITarget) => setUserName(e.target.value);
     const onEmailChange = (e: ITarget) => setUserEmail(e.target.value);
@@ -21,8 +27,35 @@ const AccountPage = ({ user }: AccountPageProps) => {
         setUserEmail(user.email);
     }
 
+    const onThemeChange = (event: React.MouseEvent<HTMLElement>, newAlignemnt: UserPrefTheme) => {
+        if (newAlignemnt) setThemeAlignment(newAlignemnt);
+        switch (newAlignemnt) {
+            case THEME.DARK:
+                setDarkMode(true);
+                break;
+            case THEME.LIGHT:
+                setDarkMode(false);
+                break;
+            default:
+                break;
+        }
+        saveUserPrefs({ ...user.userPrefs, theme: newAlignemnt });
+    }
+
     return (
         <div>
+            <Card style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
+                <h3>Theme</h3>
+                <ToggleButtonGroup
+                    value={themeAlignment}
+                    exclusive
+                    onChange={onThemeChange}
+                    style={{ backgroundColor: 'white' }}>
+                    <ToggleButton value={THEME.LIGHT} style={{ color: 'black', fontWeight: 700 }}>Light</ToggleButton>
+                    <ToggleButton value={THEME.DARK} style={{ color: 'black', fontWeight: 700 }}>Dark</ToggleButton>
+                </ToggleButtonGroup>
+            </Card>
+            <br />
             <Card style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
                 <IconButton onClick={toggleEditable} color='secondary'>
                     <EditIcon fontSize="small" />
@@ -48,4 +81,4 @@ const mapStateToProps = (state: IAuthReduxProps) => ({
     user: state.auth.user
 })
 
-export default connect(mapStateToProps, {})(AccountPage);
+export default connect(mapStateToProps, { setDarkMode, saveUserPrefs })(AccountPage);
