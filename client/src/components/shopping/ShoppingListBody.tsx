@@ -17,8 +17,8 @@ const ShoppingListBody = ({ items, listId, deleteItem }: ShoppingListBodyProps) 
             {items.map((item: IExistingItem) => (
                 <ListItem key={item._id} style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div className="left">
-                        <IconButton color="secondary" target="_blank" href={`https://www.amazon.com/s?k=${item.name.split(" ").join("+")}`}>
-                            <ShoppingCartIcon fontSize="small" color="secondary" />
+                        <IconButton target="_blank" href={`https://www.amazon.com/s?k=${item.name.split(" ").join("+")}`}>
+                            <ShoppingCartIcon fontSize="small" />
                         </IconButton>
                         {item.name}
                     </div>

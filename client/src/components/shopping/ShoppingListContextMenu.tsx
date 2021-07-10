@@ -33,7 +33,6 @@ export default function ShoppingListContextMenu({ deleteList }: ShoppingListCont
                 aria-controls="long-menu"
                 aria-haspopup="true"
                 onClick={handleClick}
-                color="secondary"
             >
                 <MoreVertIcon />
             </IconButton>

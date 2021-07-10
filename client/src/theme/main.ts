@@ -5,7 +5,7 @@ export const light = createMuiTheme({
       light: '#1a2327',
       main: '#263238',
       dark: '#515b5f',
-      contrastText: '#fff',
+      contrastText: '#fff'
     },
     secondary: {
       light: '#a73a38',
@@ -15,11 +15,14 @@ export const light = createMuiTheme({
     },
     text: {
       disabled: '#696b6e',
-      hint: '#696b6e'
+      hint: '#696b6e',
+      primary: '#000'
     },
     action: {
-      disabled: '#696b6e'
-    }
+      disabled: '#696b6e',
+      active: '#2d2d2d'
+    },
+
   }
 });
 
@@ -60,7 +63,6 @@ export const dark = createMuiTheme({
           backgroundImage: "none"
         }
       }
-
     }
   }
 });
