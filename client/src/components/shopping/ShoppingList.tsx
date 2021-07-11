@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import ItemModal from './ItemModal';
 import { IExistingList, IListReduxProps, IShoppingList } from '../../types/interfaces';
@@ -9,7 +9,6 @@ import CreateListModal from './CreateListModal';
 import ShoppingListHeader from './ShoppingListHeader';
 import ShoppingListBody from './ShoppingListBody';
 
-const PADDING = 20;
 const ITEM_HEIGTH_MULTIPLIER = 60;
 const STATIC_HEIGHT_MODIFIER = 75;
 const TARGET_WIDTH = 350;
@@ -27,10 +26,11 @@ const getIndexOfSmallestColumn = (cols: number[]): number => {
     return indexOfSmallets;
 }
 
-const calculateNumberOfColumns = (): number => {
-    const VIEWPORT_WIDTH = window.innerWidth - PADDING * 2;
-    const ACTUAL_WIDRH = TARGET_WIDTH >= VIEWPORT_WIDTH ? VIEWPORT_WIDTH : TARGET_WIDTH;
-    const numberOfColums = Math.floor((VIEWPORT_WIDTH) / ACTUAL_WIDRH);
+const calculateNumberOfColumns = (container: HTMLElement | null): number => {
+    if (!container) return 0;
+    const containerWidth = container.clientWidth;
+    const ACTUAL_WIDRH = TARGET_WIDTH >= containerWidth ? containerWidth : TARGET_WIDTH;
+    const numberOfColums = Math.floor((containerWidth) / ACTUAL_WIDRH);
     return numberOfColums;
 }
 
@@ -43,8 +43,8 @@ const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteItem }: I
     const [listId, setListId] = useState<string | null>(null);
     const [listTitle, setlistTitle] = useState<string | null>(null);
     const [itemModalOpen, setItemModalOpen] = useState(false);
-    const [numCols, setNumCols] = useState(calculateNumberOfColumns());
-
+    const slCardContainerRef = useRef<HTMLDivElement | null>(null);
+    const [numCols, setNumCols] = useState(calculateNumberOfColumns(slCardContainerRef.current));
     const toggle = () => setItemModalOpen(!itemModalOpen);
 
     const addToList = (title: string, _id: string) => {
@@ -54,7 +54,7 @@ const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteItem }: I
     }
 
     const runSizingCalculations = () => {
-        const updatedNumCols = calculateNumberOfColumns();
+        const updatedNumCols = calculateNumberOfColumns(slCardContainerRef.current);
         if (numCols === updatedNumCols) return;
         setNumCols(updatedNumCols);
     }
@@ -75,17 +75,18 @@ const ShoppingList = ({ shoppingList, isAuthenticated, getLists, deleteItem }: I
         <>
             <CreateListModal />
             <ItemModal open={itemModalOpen} toggle={toggle} listId={listId} listTitle={listTitle} />
-            <div className="sl-card-container">
+            <div className="sl-card-container" id='sl-card-container' ref={slCardContainerRef}>
                 {
                     (() => {
+                        runSizingCalculations();
                         const columns = new Array(numCols).fill(0);
                         return lists.sort(sortShoppingListByNumberOfItems).map(({ _id, title, items }) => {
                             const colIndex = getIndexOfSmallestColumn(columns);
                             const transYVal = columns[colIndex];
                             columns[colIndex] += items.length * ITEM_HEIGTH_MULTIPLIER + STATIC_HEIGHT_MODIFIER;
                             return (
-                                <div key={_id} className="sl-card-wrapper" style={{ transform: `translateY(${transYVal}px)` }}>
-                                    <Card className={`card sl-col-${colIndex} sl-grid-${columns.length}`}  >
+                                <div key={_id} className={`sl-card-wrapper sl-grid-${columns.length}`} style={{ transform: `translateY(${transYVal}px)` }}>
+                                    <Card className={`card sl-col-${colIndex}`}  >
                                         <ShoppingListHeader title={title} _id={_id} addToList={addToList}></ShoppingListHeader>
                                         <ShoppingListBody items={items} deleteItem={deleteItem} listId={_id} />
                                     </Card>
