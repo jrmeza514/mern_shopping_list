@@ -36,9 +36,11 @@ const AppNavBar = ({ auth, logout }: IAppNavbar) => {
         <div>
             <AppBar position="relative">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggle}>
-                        <MenuIcon />
-                    </IconButton>
+                    {auth?.isAuthenticated ? (
+                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggle}>
+                            <MenuIcon />
+                        </IconButton>
+                    ) : null}
                     <Typography variant="h6" className={classes.title}>
                         <Link to="/">Shopping List</Link>
                     </Typography>
