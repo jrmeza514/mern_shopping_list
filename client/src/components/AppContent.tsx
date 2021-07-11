@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { IAuthReduxProps } from '../types/interfaces';
 import ShoppingList from './shopping/ShoppingList';
 import AuthFormTabs from './auth/AuthFormTabs';
-import SettingsPage from './pages/SettingsPage';
 import AccountPage from './pages/AccountPage';
 
 import {
@@ -27,9 +26,6 @@ const AppContent = ({ auth }: AppContentProps) => {
                         if (auth.isAuthenticated && !auth.isLoading) {
                             return (
                                 <Switch>
-                                    <Route path="/settings">
-                                        <SettingsPage />
-                                    </Route>
                                     <Route path="/account">
                                         <AccountPage />
                                     </Route>

@@ -47,6 +47,7 @@ export interface IUserPrefs {
 }
 export interface IUserState {
   name: string,
+  email: string,
   userPrefs: IUserPrefs
 }
 

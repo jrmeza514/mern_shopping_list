@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import { Settings, AccountCircle as AvatarIcon } from '@material-ui/icons';
+import { AccountCircle as AvatarIcon } from '@material-ui/icons';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 import { logout } from '../../actions/authActions';
 import { connect } from 'react-redux';
@@ -55,14 +55,6 @@ const AccountMenu = ({ auth, logout }: AccountMenuProps) => {
           </MenuItem>
         </Link>
         <Divider />
-        <Link to="/settings">
-          <MenuItem >
-            <ListItemIcon>
-              <Settings fontSize="small" color="secondary" />
-            </ListItemIcon>
-            Settings
-          </MenuItem>
-        </Link>
         <MenuItem onClick={logout}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" color="secondary" />
