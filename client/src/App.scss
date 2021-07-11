@@ -37,11 +37,6 @@ a, a:visited {
 }
 
 .sl-card-container{
-  --sl-inner-width: calc(100% - 40px);
-  display: block;
-  .card::before{
-    content: var(--sl-cols);
-  }
   .card {
     display: block;
     position: absolute;
@@ -62,14 +57,18 @@ a, a:visited {
 
   @for $numcols from 1 through 20 {
     $spacebetween: 10px;
-    $width: calc(((100vw - 40px) / #{$numcols}) - ((#{$spacebetween} * (#{$numcols} - 1))/#{$numcols}));
+    
     
     .sl-grid-#{$numcols}{
+      $width: calc((100% / #{$numcols}) - ((#{$spacebetween} * (#{$numcols} - 1))/#{$numcols}));
       width: #{$width};
     }
     @for $colindex from 0 through $numcols{
-      .sl-col-#{$colindex}.sl-grid-#{$numcols}{
-        transform:  translateX(calc(#{$colindex} * #{$width} + (#{$spacebetween} * #{$colindex})));
+      .sl-col-#{$colindex}{
+        $width: 100%;
+        $X-Transform: calc(#{$colindex} * #{$width} + (#{$spacebetween} * #{$colindex}));
+        width: #{$width};
+        transform:  translateX(#{$X-Transform});
       }
     }    
   }
