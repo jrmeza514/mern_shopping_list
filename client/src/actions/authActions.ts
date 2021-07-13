@@ -14,7 +14,8 @@ import {
     REGISTER_FAIL,
     REGISTER_SUCCESS,
     GET_ITEMS,
-    CLEAR_SHOPPING_LIST
+    CLEAR_SHOPPING_LIST,
+    USERNAME_UPDATE
 } from '../actions/types';
 import { IConfigHeaders } from '../types/interfaces';
 
@@ -65,8 +66,7 @@ export const register = ({ name, email, password }: any) => (dispatch: Function)
 }
 
 export const loadUser = () => (dispatch: Function, getState: Function) => {
-    if (!getState().auth.token)
-        return dispatch({ type: AUTH_ERROR });
+    if (!getState().auth.token) return dispatch({ type: AUTH_ERROR });
 
     dispatch({ type: USER_LOADING });
     axios.get('/api/auth/user', tokenConfig(getState))
@@ -89,13 +89,21 @@ export const tokenConfig = (getState: Function) => {
         }
     }
 
-    if (token) {
-        config.headers['x-auth-token'] = token;
-    }
+    if (token) config.headers['x-auth-token'] = token;
+
     return config;
 }
 
 export const saveUserPrefs = (userPrefs: IUserPrefs) => (dispatch: Function, getState: Function) => {
     const body = userPrefs;
     axios.post('/api/users/prefs', body, tokenConfig(getState));
+}
+
+export const updateUserName = (name: string) => (dispatch: Function, getState: Function) => {
+    const body = { name };
+    axios.post('/api/users/username', body, tokenConfig(getState)).then(res => {
+        if (res.data.success) {
+            dispatch({ type: USERNAME_UPDATE, payload: name });
+        }
+    });
 }
