@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Menu as MenuIcon, Mail as MailIcon } from '@material-ui/icons';
+import { Menu as MenuIcon, ExitToApp as LogoutIcon, AccountCircle as AvatarIcon } from '@material-ui/icons';
 import { IAppNavbar, IAuthReduxProps } from '../../types/interfaces';
 import AccountMenu from './AccountMenu';
+import { logout } from '../../actions/authActions';
 import {
     List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer,
     AppBar, Toolbar, Typography, IconButton
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const AppNavBar = ({ auth }: IAppNavbar) => {
+const AppNavBar = ({ auth, logout }: IAppNavbar) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const classes = useStyles();
@@ -35,9 +36,11 @@ const AppNavBar = ({ auth }: IAppNavbar) => {
         <div>
             <AppBar position="relative">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggle}>
-                        <MenuIcon />
-                    </IconButton>
+                    {auth?.isAuthenticated ? (
+                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggle}>
+                            <MenuIcon />
+                        </IconButton>
+                    ) : null}
                     <Typography variant="h6" className={classes.title}>
                         <Link to="/">Shopping List</Link>
                     </Typography>
@@ -49,11 +52,18 @@ const AppNavBar = ({ auth }: IAppNavbar) => {
                 anchor={anchor}
                 open={isOpen}
                 onClose={toggle}
-                onOpen={toggle}>
+                onOpen={toggle}
+                onClick={toggle}>
                 <List>
-                    <ListItem button>
-                        <ListItemIcon><MailIcon /></ListItemIcon>
-                        <ListItemText primary={"text"} />
+                    <Link to="/account">
+                        <ListItem button>
+                            <ListItemIcon><AvatarIcon>J</AvatarIcon></ListItemIcon>
+                            <ListItemText primary={"Account"} />
+                        </ListItem>
+                    </Link>
+                    <ListItem button onClick={logout}>
+                        <ListItemIcon><LogoutIcon /></ListItemIcon>
+                        <ListItemText primary={"Logout"} />
                     </ListItem>
                 </List>
             </SwipeableDrawer>
@@ -65,4 +75,4 @@ const mapStateToProps = (state: IAuthReduxProps) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, null)(AppNavBar);
+export default connect(mapStateToProps, { logout })(AppNavBar);

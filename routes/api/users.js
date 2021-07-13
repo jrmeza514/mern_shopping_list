@@ -42,8 +42,16 @@ router.post('/', (req, res) => {
 
 router.post('/prefs', auth, (req, res) => {
     User.findByIdAndUpdate(req.user.id, { userPrefs: req.body }, { useFindAndModify: false }, (error) => {
-        if (error) return res.json({ succes: false });
-        return res.json({ succes: true });
+        if (error) return res.json({ success: false });
+        return res.json({ success: true });
+    });
+});
+
+router.post('/username', auth, (req, res) => {
+    const name = req.body.name;
+    User.findByIdAndUpdate(req.user.id, { name }, { userFindAndModify: false }, (error) => {
+        if (error) return res.json({ success: false });
+        return res.json({ success: true });
     });
 });
 

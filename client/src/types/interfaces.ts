@@ -67,11 +67,11 @@ export interface IConfigHeaders {
 
 // NAVBAR
 export interface IAppNavbar {
+  logout(): void;
   auth?: {
     isAuthenticated: boolean;
-    user: IUser;
+    user: IUserState;
   };
-
 }
 
 // ITEMS
