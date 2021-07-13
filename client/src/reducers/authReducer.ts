@@ -8,7 +8,8 @@ import {
     REGISTER_FAIL,
     REGISTER_SUCCESS,
     DARK_MODE_DISABLED,
-    DARK_MODE_ENABLED
+    DARK_MODE_ENABLED,
+    USERNAME_UPDATE
 } from '../actions/types';
 import { IUserState } from '../types/interfaces';
 
@@ -85,6 +86,14 @@ export default function checkAuthEvents(state = initialState, action: any) {
                         ...state.user.userPrefs,
                         theme: "THEME_LIGHT"
                     }
+                }
+            }
+        case USERNAME_UPDATE:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    name: action.payload
                 }
             }
         default:
