@@ -19,6 +19,7 @@ router.post('/', (req, res) => {
 
     User.findOne({ email }).then(user => {
         if (user) return res.status(400).json({ msg: "Email already in use" });
+        const userPrefs = {theme: "THEME_LIGHT"}
         const newUser = new User({ name, email, password, userPrefs });
 
         bcrypt.genSalt(10, (err, salt) => {
